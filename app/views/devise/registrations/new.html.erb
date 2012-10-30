@@ -1,18 +1,39 @@
-<h2>Sign up</h2>
+<div class="row">
+  <div class="span12 page-body">
+    <div class="page-header">
+      <h1>Register New Account</h1>
+    </div>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => 'form-horizontal' }) do |f| %>
+      <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+      <div class="control-group">
+        <%= f.label :email, class: 'control-label' %>
+        <div class="controls">
+          <%= f.email_field :email %>
+        </div>
+      </div>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+      <% if !session["devise.user_data"] %>
+        <div class="control-group">
+          <%= f.label :password, class: 'control-label' %>
+          <div class="controls">
+            <%= f.password_field :password %>
+          </div>
+        </div>
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
 
-  <div><%= f.submit "Sign up" %></div>
-<% end %>
+        <div class="control-group">
+          <%= f.label :password_confirmation, "Confirm Password", class: 'control-label' %>
+          <div class="controls">
+            <%= f.password_field :password_confirmation %>
+          </div>
+        </div>
+      <% end %>
 
-<%= render "devise/shared/links" %>
+      <div class="form-actions">
+        <%= f.submit "Sign up", class: 'btn btn-primary btn-large' %>
+      </div>
+    <% end %>
+  </div>
+</div>
