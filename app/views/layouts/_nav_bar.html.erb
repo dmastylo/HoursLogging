@@ -1,13 +1,16 @@
 <header class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-          <%= link_to "Hours Logging", root_path, id: "logo" %>
-          <nav>
-            <ul class="nav pull-right">
-              <li><%= link_to "Register", new_user_registration_path %></li>
-              <li><%= link_to "Sign in", new_user_session_path %></li>
-            </ul>
-          </nav>
+            <%= link_to "Hours Logging", root_path, id: "logo" %>
+            <nav>
+                <ul class="nav pull-right">
+                    <% if user_signed_in? %>
+                        <%= render 'layouts/nav_user' %>
+                    <% else %>
+                        <%= render 'layouts/nav_login' %>
+                    <% end %>    
+                </ul>
+            </nav>
         </div>
     </div>
 </header>
