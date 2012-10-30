@@ -1,10 +1,13 @@
 <div class="center hero-unit">
-    <h1>Welcome to Hours Logging</h1>
+    <% if user_signed_in? %>
+        <% provide(:title, "#{current_user}") %>
+        <h2>Dashboard</h2>
+    <% else %>
+        <h1>Welcome to Hours Logging</h1>
 
-    <h2>
-        Log the hours you spend on projects without the guesswork
-    </h2>
+        <h2>Log the hours you spend on projects without the guesswork </h2>
 
-    <%= link_to "Register", '#', class: "btn btn-large btn-primary" %>
-    <%= link_to "Login", '#', class: "btn btn-large btn-primary" %>
+        <%= link_to "Register", '#', class: "btn btn-large btn-primary" %>
+        <%= link_to "Login", '#', class: "btn btn-large btn-primary" %>
+    <% end %>
 </div>

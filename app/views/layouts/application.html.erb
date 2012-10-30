@@ -9,8 +9,18 @@
 </head>
 <body>
     <%= render 'layouts/nav_bar' %>
+
     <div class="container">
-        <%= yield %>
+        <div class="content">
+            <div class="row">
+                <div class="span12">
+                    <%= content_tag(:div, flash[:error], :class => 'alert alert-error', :id => "flash_error") if flash[:error] %>
+                    <%= content_tag(:div, flash[:notice], :class => 'alert alert-warning', :id => "flash_notice") if flash[:notice] %>
+                    <%= content_tag(:div, flash[:alert], :class => 'alert alert-info', :id => "flash_alert") if flash[:alert] %>
+                </div>
+            </div><!--/row-->
+            <%= yield %>
+        </div><!--/content-->
         <%= render 'layouts/footer' %>
     </div>
 </body>
