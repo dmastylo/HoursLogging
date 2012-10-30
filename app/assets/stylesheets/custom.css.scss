@@ -1,5 +1,10 @@
 @import "bootstrap";
 
+/* Mixins, Variables, etc. */
+
+$grayLight: #999;
+$grayMediumLight: #eaeaea;
+
 /* Universal */
 
 html
@@ -51,10 +56,10 @@ h2
 {
     font-size: 1.7em;
     letter-spacing: -1px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-align: center;
     font-weight: normal;
-    color: #999;
+    color: $grayLight;
 }
 
 p
@@ -89,8 +94,8 @@ footer
 {
     margin-top: 45px;
     padding-top: 5px;
-    border-top: 1px solid #eaeaea;
-    color: #999;
+    border-top: 1px solid $grayMediumLight;
+    color: $grayLight;
 
     small
     {
@@ -99,11 +104,11 @@ footer
 
     a
     {
-        color: #555;
-        
+        color: $gray;
+
         &:hover
         {
-            color: #222;
+            color: $grayDarker;
         }
     }
 }
