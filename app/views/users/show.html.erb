@@ -8,6 +8,11 @@
         <h2><%= @user.email %>'s Time Sheet and Projects</h2>
     </div>
     <div class="span12">
-        &nbsp;
+        <% if @user.time_spents.any? %>
+            <h3>Time Spents (<%= @user.time_spents.count %>)</h3>
+            <ul class="time_spents">
+                <%= render @time_spents %>
+            </ol>
+        <% end %>
     </div>
 </div>

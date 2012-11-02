@@ -3,5 +3,6 @@ class UsersController < ApplicationController
     
     def show
         @user = User.find(params[:id])
+        @timespents = @user.time_spents(page: params[:page])
     end
 end

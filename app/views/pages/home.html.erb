@@ -5,8 +5,10 @@
 
         <h2>Timing</h2>
 
-
-
+        <%= form_for @time_spents do |f| %>
+            <%= f.submit "Start", class: "btn btn-large btn-primary" %>
+            <%= f.submit "Stop", class: "btn btn-large btn-primary" %>
+        <% end %>
     <% else %>
         <h1>Welcome to Hours Logging</h1>
 

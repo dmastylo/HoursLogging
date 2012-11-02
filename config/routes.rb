@@ -1,13 +1,11 @@
 HoursLogging::Application.routes.draw do
 
-    devise_for :users
-
     root to: "pages#home"
 
+    devise_for :users
+
     resources :users
-
     resources :time_spents
-
     resources :projects
 
   # The priority is based upon order of creation:
