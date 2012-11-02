@@ -17,7 +17,7 @@ class TimeSpent < ActiveRecord::Base
   attr_accessible :notes, :totaltime, :created_at, :updated_at
   belongs_to :user
   
-  # validates :user_id, presence: true
+  validates :user_id, presence: true
 
   default_scope order: 'time_spents.created_at DESC'
 end
