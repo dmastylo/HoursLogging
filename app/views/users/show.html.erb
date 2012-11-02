@@ -1,0 +1,13 @@
+<% if @user == current_user %>
+    <% provide(:title, 'Your Profile Page') %>
+<% else %>
+    <% provide(:title, "#{@user.email}'s Profile Page") %>
+<% end %>
+<div class="row">
+    <div class="span12">
+        <h2><%= @user.email %>'s Time Sheet and Projects</h2>
+    </div>
+    <div class="span12">
+        &nbsp;
+    </div>
+</div>

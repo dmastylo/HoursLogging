@@ -1,7 +1,7 @@
 class CreateTimeSpents < ActiveRecord::Migration
   def change
     create_table :time_spents do |t|
-      t.integer :userid
+      t.integer :user_id
       t.integer :projectid
       t.datetime :starttime
       t.datetime :stoptime

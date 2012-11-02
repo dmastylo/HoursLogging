@@ -1,7 +1,12 @@
 <div class="center hero-unit">
     <% if user_signed_in? %>
-        <% provide(:title, "#{current_user}") %>
-        <h2>Dashboard</h2>
+        <% provide(:title, "#{current_user.email}") %>
+        <h1>Dashboard</h1>
+
+        <h2>Timing</h2>
+
+
+
     <% else %>
         <h1>Welcome to Hours Logging</h1>
 

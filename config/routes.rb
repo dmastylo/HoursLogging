@@ -4,6 +4,12 @@ HoursLogging::Application.routes.draw do
 
     root to: "pages#home"
 
+    resources :users
+
+    resources :time_spents
+
+    resources :projects
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
