@@ -1,4 +1,4 @@
 class Project < ActiveRecord::Base
   attr_accessible :name
-  validates presence: true
+  validates :name, presence: true
 end
