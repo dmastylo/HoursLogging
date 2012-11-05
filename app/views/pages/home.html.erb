@@ -4,12 +4,18 @@
         <h1>Dashboard</h1>
 
         <h2>Timing</h2>
-
         <%= form_for(@time_spent) do |f| %>
-            <%= f.text_field :notes, placeholder: "What did you accomplish..." %>
-            <br><%= f.submit "Start", class: "btn btn-large btn-primary" %>
-            <%= f.submit "Stop", class: "btn btn-large btn-primary" %>
+            <br>
+            <% if @existing_task %>
+                <div class="field">
+                    <%= f.text_area :notes, placeholder: "What did you accomplish?", class: "time-text-area" %>
+                </div>
+                <%= f.submit "Stop", class: "btn btn-large btn-primary" %>
+            <% else %>
+                <%= f.submit "Start", class: "btn btn-large btn-primary" %>
+            <% end %>
         <% end %>
+
     <% else %>
         <h1>Welcome to Hours Logging</h1>
 

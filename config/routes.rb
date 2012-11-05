@@ -5,7 +5,7 @@ HoursLogging::Application.routes.draw do
     devise_for :users
 
     resources :users, only: [:show]
-    resources :time_spents, only: [:create, :destroy]
+    resources :time_spents, only: [:create, :edit, :update, :destroy]
     resources :projects
 
   # The priority is based upon order of creation:

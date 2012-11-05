@@ -18,15 +18,23 @@
 #
 
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+    # Include default devise modules. Others available are:
+    # :token_authenticatable, :confirmable,
+    # :lockable, :timeoutable and :omniauthable
+    devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-  # attr_accessible :title, :body
-  
-  has_many :time_spents
+    # Setup accessible (or protected) attributes for your model
+    attr_accessible :email, :password, :password_confirmation, :remember_me
+    # attr_accessible :title, :body
+
+    has_many :time_spents
+
+    def has_running_task?
+        if !self.time_spents.last.nil?
+            self.time_spents.last.finished_at.nil?
+        else
+            false
+        end
+    end
 end
