@@ -32,8 +32,7 @@ class TimeSpent < ActiveRecord::Base
                 false
             # Round to the nearest 15 minutes
             else
-                (@total_time * 4.0).round / 4.0
-                self.total_time = @total_time
+                self.total_time = (@total_time * 4.0).round / 4.0
                 true
             end
         end
