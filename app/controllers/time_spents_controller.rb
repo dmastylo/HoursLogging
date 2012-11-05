@@ -1,10 +1,11 @@
 class TimeSpentsController < ApplicationController
+    include TimeSpentsHelper
     before_filter :authenticate_user!
 
     def create
         @time_spent = current_user.time_spents.build(params[:time_spent])
         if @time_spent.save
-            flash[:notice] = "Time Spent created!"
+            flash[:notice] = "Started working"
             redirect_to root_path
         else
             render 'pages/home'
@@ -18,18 +19,16 @@ class TimeSpentsController < ApplicationController
     # Need to calculate total time as well
     def update
         @time_spent = current_user.time_spents.last
-        @totaltime = Time.now - @time_spent.created_at
-
+        
         submission_hash = { "notes" => params[:time_spent][:notes],
-                            "finished_at" => Time.now,
-                            "totaltime" => @totaltime}
-
+                            "finished_at" => Time.now }
 
         if @time_spent.update_attributes(submission_hash)
-            flash[:notice] = "Time Spent stopped!"
+            flash[:notice] = "Done working"
             redirect_to user_path(current_user)
         else
-            render 'pages/home'
+            flash[:error] = "You have to work for at least 15 minutes"
+            redirect_to root_path
         end
     end
 
