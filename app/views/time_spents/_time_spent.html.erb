@@ -4,7 +4,7 @@
         <% if !@project.nil? %>
             Belongs to User: <%= time_spent.user %>
         <% elsif !@user.nil? %>
-            Belongs to Project: <%= time_spent.project %>
+            Belongs to Project: <%= time_spent.project.name %>
         <% end %>
     </span>
     <span class="timestamp">

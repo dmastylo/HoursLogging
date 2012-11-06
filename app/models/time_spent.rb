@@ -16,7 +16,8 @@ class TimeSpent < ActiveRecord::Base
     before_update :finish_time
 
     attr_accessible :notes, :totaltime, :created_at, :finished_at, :project_id
-    belongs_to :user #, :project
+    belongs_to :user
+    belongs_to :project
 
     validates :user_id, presence: true
     # validates :notes, presence: true
