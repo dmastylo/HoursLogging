@@ -19,10 +19,10 @@
                     <div class="field">
                         <%= f.text_area :notes, placeholder: "What did you accomplish?", id: "notes-text-area" %>
                     </div>
-                    <%= f.submit "Stop", id: "stop-button", class: "btn btn-large btn-primary" %>
+                    <%= f.submit "Stop Timing", id: "stop-button", class: "btn btn-large btn-primary" %>
                 <% else %>
                     <%= f.collection_select(:project_id, @projects, :id, :name) %>
-                    <%= f.submit "Start", id: "start-button", class: "btn btn-large btn-primary", remote: true %>
+                    <%= f.submit "Start Timing", id: "start-button", class: "btn btn-large btn-primary", remote: true %>
                 <% end %>
             <% end %>
         <% end %>
