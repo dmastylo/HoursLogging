@@ -8,7 +8,7 @@
     <div class="span12">
         <% if @project.time_spents.any? %>
             <h3>Time Spents (<%= @project.time_spents.count %>)</h3>
-            <ul class="time_spents">
+            <ul class="list-styling">
                 <%= render @time_spents %>
             </ol>
         <% end %>
