@@ -1,16 +1,12 @@
-<% if @user == current_user %>
-    <% provide(:title, 'Your Profile Page') %>
-<% else %>
-    <% provide(:title, "#{@user.email}'s Profile Page") %>
-<% end %>
+<% provide(:title, "#{@project.name}'s Time Spents") %>
 <div class="row">
     <div class="span12">
-        <h2><%= @user.email %>'s Time Sheet and Projects</h2>
+        <h2><%= @project.name %>'s Time Spents</h2>
     </div>
 </div>
 <div class="row">
     <div class="span12">
-        <% if @user.time_spents.any? %>
+        <% if @project.time_spents.any? %>
             <h3>Time Spents (<%= @user.time_spents.count %>)</h3>
             <ul class="time_spents">
                 <%= render @time_spents %>

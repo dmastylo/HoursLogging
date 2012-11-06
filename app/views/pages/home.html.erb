@@ -3,20 +3,30 @@
         <% provide(:title, "#{current_user.email}") %>
         <h1>Dashboard</h1>
 
-        <h2>Timing</h2>
-        <%= form_for(@time_spent) do |f| %>
-            <br>
-            <% if @existing_task %>
-                <div class="field">
-                    <%= f.text_area :notes, placeholder: "What did you accomplish?", class: "time-text-area" %>
-                </div>
-                <%= f.submit "Stop", class: "btn btn-large btn-primary" %>
-            <% else %>
-                <%= f.submit "Start", class: "btn btn-large btn-primary" %>
+        <% if !@existing_task %>
+        <h2>Projects</h2>
+            <%= form_for(@project) do |f| %>
+                <%= f.text_field :name, placeholder: "Project Name" %>
+                <br><%= f.submit "New Project", class: "btn btn-large btn-primary" %>
             <% end %>
         <% end %>
 
-    <% else %>
+        <% if !@projects.last.nil? %> 
+        <h2>Timing</h2>
+            <%= form_for(@time_spent) do |f| %>
+                <br>
+                <% if @existing_task %>
+                    <div class="field">
+                        <%= f.text_area :notes, placeholder: "What did you accomplish?", class: "time-text-area" %>
+                    </div>
+                    <%= f.submit "Stop", class: "btn btn-large btn-primary" %>
+                <% else %>
+                    <%= f.collection_select(:project_id, @projects, :id, :name ) %>
+                    <%= f.submit "Start", class: "btn btn-large btn-primary" %>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% else %> <!-- Not Logged In -->
         <h1>Welcome to Hours Logging</h1>
 
         <h2>Log the hours you spend on projects without the guesswork </h2>

@@ -3,12 +3,19 @@ class PagesController < ApplicationController
 
     def home
         if user_signed_in?
-            @existing_task = current_user.has_running_task?
+            @projects = Project.all
 
-            if @existing_task
-                @time_spent = current_user.time_spents.last
-            else
-                @time_spent = current_user.time_spents.build
+            # Initial setup for first project
+            @project = Project.new
+
+            if !@projects.last.nil?
+                @existing_task = current_user.has_running_task?
+
+                if @existing_task
+                    @time_spent = current_user.time_spents.last
+                else
+                    @time_spent = current_user.time_spents.build
+                end
             end
         end
     end

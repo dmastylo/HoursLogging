@@ -19,7 +19,7 @@ class TimeSpentsController < ApplicationController
     # Need to calculate total time as well
     def update
         @time_spent = current_user.time_spents.last
-        
+
         submission_hash = { "notes" => params[:time_spent][:notes],
                             "finished_at" => Time.now }
 
@@ -27,7 +27,7 @@ class TimeSpentsController < ApplicationController
             flash[:notice] = "Done working"
             redirect_to user_path(current_user)
         else
-            flash[:error] = "You have to work for at least 15 minutes"
+            flash[:error] = "You have to work for at least 15 minutes and/or fill in your accomplishments"
             redirect_to root_path
         end
     end

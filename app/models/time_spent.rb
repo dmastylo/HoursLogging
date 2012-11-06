@@ -13,10 +13,10 @@
 #
 
 class TimeSpent < ActiveRecord::Base
-    before_update :round_time
+    before_update :finish_time
 
-    attr_accessible :notes, :totaltime, :created_at, :finished_at
-    belongs_to :user
+    attr_accessible :notes, :totaltime, :created_at, :finished_at, :project_id
+    belongs_to :user #, :project
 
     validates :user_id, presence: true
     # validates :notes, presence: true
@@ -24,11 +24,11 @@ class TimeSpent < ActiveRecord::Base
     # default_scope order: 'time_spents.created_at DESC'
     
     private
-        def round_time
+        def finish_time
             @total_time = (Time.now - self.created_at) / 1.hour
 
             # Don't allow under 15 minutes of work
-            if @total_time < 0.25
+            if @total_time < 0.25 || !attribute_present?("notes")
                 false
             # Round to the nearest 15 minutes
             else

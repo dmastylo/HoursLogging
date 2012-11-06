@@ -1,0 +1,16 @@
+<% provide(:title, 'All Projects') %>
+<div class="row">
+    <div class="span12">
+        <h2>All Projects</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <% if @projects.any? %>
+            <h3>Projects (<%= @projects.count %>)</h3>
+            <ul class="projects">
+                <%= render @projects %>
+            </ol>
+        <% end %>
+    </div>
+</div>
