@@ -6,8 +6,8 @@
         <% if !@existing_task %>
         <h2 id="projects-heading">Projects</h2>
             <%= form_for(@project) do |f| %>
-                <%= f.text_field :name, placeholder: "Project Name" %>
-                <br><%= f.submit "New Project", class: "btn btn-large btn-primary" %>
+                <%= f.text_field :name, id: "project-text-field", placeholder: "Project Name" %>
+                <br><%= f.submit "New Project", id: "project-submit", class: "btn btn-large btn-primary" %>
             <% end %>
         <% end %>
 
@@ -17,12 +17,12 @@
                 <br>
                 <% if @existing_task %>
                     <div class="field">
-                        <%= f.text_area :notes, placeholder: "What did you accomplish?", class: "time-text-area" %>
+                        <%= f.text_area :notes, placeholder: "What did you accomplish?", id: "notes-text-area", class: "time-text-area" %>
                     </div>
-                    <%= f.submit "Stop", class: "btn btn-large btn-primary" %>
+                    <%= f.submit "Stop", id: "stop-button", class: "btn btn-large btn-primary" %>
                 <% else %>
-                    <%= f.collection_select(:project_id, @projects, :id, :name ) %>
-                    <%= f.submit "Start", class: "btn btn-large btn-primary", remote: true %>
+                    <%= f.collection_select(:project_id, @projects, :id, :name) %>
+                    <%= f.submit "Start", id: "start-button", class: "btn btn-large btn-primary", remote: true %>
                 <% end %>
             <% end %>
         <% end %>
