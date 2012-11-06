@@ -1,8 +1,10 @@
 <li>
     <span class="content">
         <%= time_spent.notes %>
+    </span>
+    <span class="content">
         <% if !@project.nil? %>
-            Belongs to User: <%= time_spent.user %>
+            Belongs to User: <%= time_spent.user.email %>
         <% elsif !@user.nil? %>
             Belongs to Project: <%= time_spent.project.name %>
         <% end %>
