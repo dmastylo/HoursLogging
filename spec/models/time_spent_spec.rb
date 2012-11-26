@@ -17,7 +17,7 @@ require 'spec_helper'
 describe TimeSpent do
   let(:user) { FactoryGirl.create(:user) }
   let(:project) { FactoryGirl.create(:project) }
-  before { @time_spent = user.time_spents.new(project: project) }
+  before { @time_spent = user.time_spents.new(project_id: project.id) }
   subject { @time_spent }
   
   describe "validations" do

@@ -20,9 +20,7 @@ class TimeSpentsController < ApplicationController
     def update
         @time_spent = current_user.time_spents.last
 
-        submission_hash = { "notes" => params[:time_spent][:notes],
-                            "finished_at" => Time.now }
-
+        submission_hash = { notes: params[:time_spent][:notes], finished_at: Time.now }
         if @time_spent.update_attributes(submission_hash)
             flash[:notice] = "Done working"
             redirect_to user_path(current_user)
