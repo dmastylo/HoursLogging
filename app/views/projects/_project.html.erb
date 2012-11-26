@@ -1,3 +1,20 @@
-<li>
-    <span class="content"><%= link_to project.name, project %></span>
-</li>
+<tr>
+  <td><%= link_to project.name, project %></td>
+  <td>
+    <% if project.last_time_spent %>
+      <% if project.last_time_spent.finished_at.nil? %>
+        now
+      <% else %>
+        <%= distance_of_time_in_words Time.now - project.last_time_spent.finished_at %> ago
+      <% end %>
+    <% else %>
+      never
+    <% end %>
+  </td>
+  <td>
+    <%= project.total_time %> hours
+  </td>
+  <td>
+    <%= project.total_time / @total_time * 100 %>%
+  </td>
+</tr>

@@ -1,16 +1,29 @@
 <% provide(:title, 'All Projects') %>
 <div class="row">
-    <div class="span12">
-        <h2>All Projects</h2>
-    </div>
+  <div class="span12">
+    <h2>All Projects</h2>
+  </div>
 </div>
-<div class="row">
-    <div class="span12">
-        <% if @projects.any? %>
-            <h3>Projects (<%= @projects.count %>)</h3>
-            <ul class="list-styling">
-                <%= render @projects %>
-            </ol>
-        <% end %>
+<% if @projects.any? %>
+  <div class="row">
+    <div class="span6">
+      <h3>Projects (<%= @projects.count %>)</h3>
     </div>
-</div>
+    <div class="span6">
+      <%= link_to "New Project", new_project_path, class: "pull-right btn btn-primary" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span12">
+      <table class="table table-bordered table-striped push-top">
+        <tr>
+          <th>Name</th>
+          <th>Last Worked On</th>
+          <th>Total Time</th>
+          <th>Time Percentage</th>
+        </tr>
+        <%= render @projects %>
+      </table>
+    </div>
+  </div>
+<% end %>

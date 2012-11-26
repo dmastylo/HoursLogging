@@ -32,7 +32,14 @@ class TimeSpentsController < ApplicationController
         end
     end
 
+    def new
+
+    end
+
+    def import
+        @text = params[:csv]
+    end
+
     def destroy
-        
     end
 end

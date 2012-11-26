@@ -6,7 +6,7 @@ HoursLogging::Application.routes.draw do
 
     resources :users, only: [:show]
     resources :time_spents, only: [:create, :edit, :update, :destroy]
-    resources :projects, only: [:create, :index, :show]
+    resources :projects, only: [:new, :create, :index, :show]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

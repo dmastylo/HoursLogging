@@ -11,6 +11,8 @@ gem 'bootstrap-sass', '2.0.4'
 # Development
 group :development, :test do
   gem 'sqlite3', '1.3.5'
+  gem 'rspec-rails'
+  gem 'annotate'
 end
 
 # Production
@@ -20,6 +22,9 @@ end
 
 # Devise
 gem 'devise'
+
+# Thin web server
+gem 'thin'
 
 # Gems used only for assets and not required
 # in production environments by default.
