@@ -7,7 +7,7 @@
     <% end %>
   </td>
   <td>
-    <%= time_spent.notes.truncate 80 %>
+    <%= time_spent.notes.truncate 80 if time_spent.notes.present? %>
   </td>
   <td>
     <% if time_spent.finished_at.present? %>
@@ -17,7 +17,11 @@
     <% end %>
   </td>
   <td>
-    <%= time_spent.total_time %> hours
+    <% if time_spent.total_time.present? %>
+      <%= time_spent.total_time %> hours
+    <% else %>
+      n/a
+    <% end %>
   </td>
 </tr>
 <!-- <li>
