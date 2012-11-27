@@ -3,6 +3,6 @@ class UsersController < ApplicationController
     
     def show
         @user = User.find(params[:id])
-        @time_spents = @user.time_spents.paginate(page: params[:page])
+        @time_spents = @user.time_spents.order('finished_at DESC').paginate(page: params[:page])
     end
 end

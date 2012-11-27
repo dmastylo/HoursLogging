@@ -23,6 +23,6 @@ class ProjectsController < ApplicationController
 
     def show
         @project = Project.find(params[:id])
-        @time_spents = @project.time_spents.paginate(page: params[:page])
+        @time_spents = @project.time_spents.order('finished_at DESC').paginate(page: params[:page])
     end
 end
