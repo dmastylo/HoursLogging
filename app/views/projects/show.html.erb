@@ -1,16 +1,27 @@
 <% provide(:title, "#{@project.name}'s Time Spents") %>
 <div class="row">
     <div class="span12">
-        <h2><%= @project.name %>'s Time Spents</h2>
+        <h2><%= @project.name %>'s History</h2>
     </div>
 </div>
 <div class="row">
-    <div class="span12">
-        <% if @project.time_spents.any? %>
-            <h3>Time Spents (<%= @project.time_spents.count %>)</h3>
-            <ul class="list-styling">
-                <%= render @time_spents %>
-            </ol>
-        <% end %>
-    </div>
+  <div class="span12">
+    <table class="table table-bordered table-striped push-top">
+      <tr>
+        <th>Project</th>
+        <th>Description</th>
+        <th>Ended</th>
+        <th>Total Time</th>
+      </tr>
+      <% if @time_spents.any? %>
+        <%= render @time_spents %>
+      <% else %>
+        <tr>
+          <td colspan="5">No one has worked on <%= $project.name %> yet.</td>
+        </tr>
+      <% end %>
+    </table>
+
+    <%= will_paginate(@time_spents) %>
+  </div>
 </div>

@@ -41,8 +41,9 @@
           <% end %>
         <% else %>
 
+          <div class="push-bottom">Choose a project to begin working:</div>
           <%= f.collection_select(:project_id, @projects, :id, :name) %>
-          <%= f.submit "Start Timing", id: "start-button", class: "btn btn-large btn-primary", remote: true %>
+          <%= f.submit "Start Timing", id: "start-button", class: "btn btn-primary", remote: true %>
 
         <% end %>
       <% end %>

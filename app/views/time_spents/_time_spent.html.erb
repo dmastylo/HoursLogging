@@ -1,17 +1,35 @@
-<li>
-    <span class="content">
-        <%= time_spent.notes %>
-    </span>
-    <span class="content">
-        <% if !@project.nil? %>
-            Belongs to User: <%= time_spent.user.email %>
-        <% elsif !@user.nil? %>
-            Belongs to Project: <%= time_spent.project.name %>
-        <% end %>
-    </span>
-    <span class="timestamp">
-        Start time: <%= (time_spent.created_at) %>.
-        Finish time: <%= (time_spent.finished_at) %>.
-        Total time: <%= (time_spent.total_time) %> hours.
-    </span>
-</li>
+<tr>
+  <td>
+    <% if !@project.nil? %>
+      <%= link_to time_spent.user.email, time_spent.user %>
+    <% elsif !@user.nil? %>
+      <%= link_to time_spent.project.name, time_spent.project %>
+    <% end %>
+  </td>
+  <td>
+    <%= time_spent.notes.truncate 60 %>
+  </td>
+  <td>
+    <%= distance_of_time_in_words Time.now - time_spent.finished_at %> ago
+  </td>
+  <td>
+    <%= time_spent.total_time %> hours
+  </td>
+</tr>
+<!-- <li>
+  <span class="content">
+    <%= time_spent.notes %>
+  </span>
+  <span class="content">
+    <% if !@project.nil? %>
+      Belongs to User: <%= time_spent.user.email %>
+    <% elsif !@user.nil? %>
+      Belongs to Project: <%= time_spent.project.name %>
+    <% end %>
+  </span>
+  <span class="timestamp">
+    Start time: <%= (time_spent.created_at) %>.
+    Finish time: <%= (time_spent.finished_at) %>.
+    Total time: <%= (time_spent.total_time) %> hours.
+  </span>
+</li> -->
