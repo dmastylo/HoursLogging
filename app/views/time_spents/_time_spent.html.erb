@@ -10,7 +10,11 @@
     <%= time_spent.notes.truncate 60 %>
   </td>
   <td>
-    <%= distance_of_time_in_words Time.now - time_spent.finished_at %> ago
+    <% if time_spent.finished_at.present? %>
+      <%= distance_of_time_in_words Time.now - time_spent.finished_at %> ago
+    <% else %>
+      still working
+    <% end %>
   </td>
   <td>
     <%= time_spent.total_time %> hours
