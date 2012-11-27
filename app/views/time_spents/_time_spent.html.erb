@@ -23,6 +23,11 @@
       n/a
     <% end %>
   </td>
+  <td>
+    <% if time_spent.user == current_user %>
+      <%= link_to "Delete", time_spent_path(time_spent), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %>
+    <% end %>
+  </td>
 </tr>
 <!-- <li>
   <span class="content">

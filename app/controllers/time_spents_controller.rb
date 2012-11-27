@@ -1,6 +1,7 @@
 class TimeSpentsController < ApplicationController
     include TimeSpentsHelper
     before_filter :authenticate_user!
+    before_filter :correct_user, only: [:destroy]
 
     def create
         @time_spent = current_user.time_spents.build(params[:time_spent])
@@ -39,5 +40,13 @@ class TimeSpentsController < ApplicationController
     end
 
     def destroy
+        @time_spent.destroy
+        redirect_to :back
+    end
+
+private
+    def correct_user
+        @time_spent = current_user.time_spents.find_by_id(params[:id])
+        redirect_to root_path if @time_spent.nil? 
     end
 end
