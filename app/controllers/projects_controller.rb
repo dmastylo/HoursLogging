@@ -23,6 +23,6 @@ class ProjectsController < ApplicationController
 
     def show
         @project = Project.find(params[:id])
-        @time_spents = @project.time_spents.where('finished_at <> ""').paginate(page: params[:page])
+        @time_spents = @project.time_spents.where('finished_at NOT NULL').paginate(page: params[:page])
     end
 end
