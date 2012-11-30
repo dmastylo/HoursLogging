@@ -3,6 +3,10 @@ class TimeSpentsController < ApplicationController
     before_filter :authenticate_user!
     before_filter :correct_user, only: [:destroy]
 
+    def index
+        @time_spents = TimeSpent.currently_working
+    end
+
     def create
         @time_spent = current_user.time_spents.build(params[:time_spent])
         if @time_spent.save

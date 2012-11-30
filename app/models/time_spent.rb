@@ -38,10 +38,10 @@ class TimeSpent < ActiveRecord::Base
   validates :user_id, presence: true
   validates_with TimeSpentValidator
 
-  # validates :notes, presence: true
+  def self.currently_working
+    TimeSpent.where("finished_at IS NULL")
+  end
 
-  # default_scope order: 'time_spents.created_at DESC'
-  
 private
   def finish_time
     if !self.finished_at.nil?

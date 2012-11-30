@@ -1,0 +1,43 @@
+<% provide(:title, 'Currently Working') %>
+<div class="row">
+  <div class="span12">
+    <h2>Currently Working</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="span6">
+    <h3>Currently Working (<%= @time_spents.count %>)</h3>
+  </div>
+  <div class="span6">
+    <%= link_to "Work", root_path, class: "pull-right btn btn-primary" %>
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+    <table class="table table-bordered table-striped push-top">
+      <tr>
+        <th>Name</th>
+        <th>Project</th>
+        <th>Work Time</th>
+      </tr>
+      <% if @time_spents.any? %>
+        <tr>
+          <% @time_spents.each do |time_spent| %>
+            <td>
+              <%= link_to time_spent.user.email, time_spent.user %>
+            </td>
+            <td>
+              <%= link_to time_spent.project.name, time_spent.project %>
+            </td>
+            <td>
+              <%= distance_of_time_in_words Time.now - time_spent.created_at %>
+            </td>
+          <% end %>
+      <% else %>
+        <tr>
+          <td colspan="5">There are no people working right now.</td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
