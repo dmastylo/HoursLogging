@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
 
     has_many :time_spents
 
+    def total_time
+      self.time_spents.sum(:total_time)
+    end
+
     def has_running_task?
         if !self.time_spents.last.nil?
             self.time_spents.last.finished_at.nil?
