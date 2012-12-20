@@ -7,7 +7,7 @@
     <% end %>
   </td>
   <td>
-    <%= time_spent.notes.truncate 80 if time_spent.notes.present? %>
+    <div class="expandable-text"><%= time_spent.notes if time_spent.notes.present? %></div>
   </td>
   <td>
     <% if time_spent.finished_at.present? %>
