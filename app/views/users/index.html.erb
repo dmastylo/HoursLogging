@@ -1,15 +1,12 @@
-<% provide(:title, 'All Projects') %>
+<% provide(:title, 'All Users') %>
 <div class="row">
   <div class="span12">
-    <h2>All Projects</h2>
+    <h2>All Users</h2>
   </div>
 </div>
 <div class="row">
-  <div class="span6">
-    <h3><%= @total_time %> hours worked on <%= @projects.count %> Project(s)</h3>
-  </div>
-  <div class="span6">
-    <%= link_to "New Project", new_project_path, class: "pull-right btn btn-primary" %>
+  <div class="span12">
+    <h3><%= @users.count %> User(s) worked a total of <%= @total_time %> hours</h3>
   </div>
 </div>
 <div class="row">
@@ -21,11 +18,11 @@
         <th>Total Time</th>
         <th>Time Percentage</th>
       </tr>
-      <% if @projects.any? %>
-        <%= render @projects %>
+      <% if @users.any? %>
+        <%= render @users %>
       <% else %>
         <tr>
-          <td colspan="5">There are no projects. Add one!</td>
+          <td colspan="5">There are no users.</td>
         </tr>
       <% end %>
     </table>

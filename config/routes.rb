@@ -4,7 +4,7 @@ HoursLogging::Application.routes.draw do
 
     devise_for :users
 
-    resources :users, only: [:show]
+    resources :users, only: [:index, :show]
     resources :time_spents, only: [:index, :create, :edit, :update, :destroy]
     resources :projects, only: [:new, :create, :index, :show]
 
