@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
     end
 
     def index
-        @projects = Project.all
+        @projects = Project.sorted_by_recent_work
         @total_time = 0
         @projects.each { |project| @total_time += project.total_time }
         @total_time = 1 if @total_time == 0
