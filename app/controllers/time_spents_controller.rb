@@ -18,20 +18,33 @@ class TimeSpentsController < ApplicationController
     end
 
     def edit
-        
+        @time_spent = TimeSpent.find(params[:id])
     end
 
     # Need to calculate total time as well
     def update
-        @time_spent = current_user.time_spents.last
+        # editing note contents
+        if params[:time_spent][:editing_note]
+            @time_spent = TimeSpent.find(params[:id])
+            if @time_spent.update_attribute(:notes, params[:time_spent][:notes])
+              flash[:success] = "Notes updated!"
 
-        submission_hash = { notes: params[:time_spent][:notes], finished_at: Time.now }
-        if @time_spent.update_attributes(submission_hash)
-            flash[:notice] = "Done working!"
-            redirect_to user_path(current_user)
+              redirect_to project_path(@time_spent.project)
+            else
+              render "edit"
+            end
         else
-            flash[:error] = "Please enter what you accomplished." # It really should be the active record error that displays, not this
-            redirect_to root_path
+        # stop timing
+            @time_spent = current_user.time_spents.last
+
+            submission_hash = { notes: params[:time_spent][:notes], finished_at: Time.now }
+            if @time_spent.update_attributes(submission_hash)
+                flash[:notice] = "Done working!"
+                redirect_to user_path(current_user)
+            else
+                flash[:error] = "Please enter what you accomplished." # It really should be the active record error that displays, not this
+                redirect_to root_path
+            end
         end
     end
 
