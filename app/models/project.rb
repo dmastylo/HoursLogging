@@ -13,6 +13,10 @@ class Project < ActiveRecord::Base
   validates :name, presence: true
   has_many :time_spents
 
+  def self.sorted_by_recent_work
+    Project.all.sort { |x, y| y.last_time_spent <=> x.last_time_spent }
+  end
+
   def total_time
     self.time_spents.sum(:total_time)
   end
