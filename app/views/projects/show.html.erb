@@ -6,23 +6,34 @@
 </div>
 <div class="row">
   <div class="span12">
-    <table class="table table-bordered table-striped push-top">
-      <tr>
-        <th>User</th>
-        <th>Description</th>
-        <th>Ended</th>
-        <th>Total Time</th>
-        <th>Actions</th>
-      </tr>
-      <% if @time_spents.any? %>
-        <%= render @time_spents %>
-      <% else %>
-        <tr>
-          <td colspan="5">No one has worked on <%= $project.name %> yet.</td>
-        </tr>
-      <% end %>
-    </table>
+    <ul class="nav nav-tabs" id="myTab" data-tabs="tabs">
+      <li class="active"><a href="#time_spents" data-toggle="tab">Time Spents</a></li>
+      <li><a href="#users" data-toggle="tab">User Distribution</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="time_spents">
+        <table class="table table-bordered table-striped push-top">
+          <tr>
+            <th>User</th>
+            <th>Description</th>
+            <th>Ended</th>
+            <th>Total Time</th>
+            <th>Actions</th>
+          </tr>
+          <% if @time_spents.any? %>
+            <%= render @time_spents %>
+          <% else %>
+            <tr>
+              <td colspan="5">No one has worked on <%= $project.name %> yet.</td>
+            </tr>
+          <% end %>
+        </table>
 
-    <%= will_paginate(@time_spents) %>
+        <%= will_paginate(@time_spents) %>
+      </div>
+      <div class="tab-pane" id="users">
+        
+      </div>
+    </div>
   </div>
 </div>
