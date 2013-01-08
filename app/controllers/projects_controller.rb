@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
         @users = User.project_users(@project.id)
 
         @total_time = 0
-        @users.each { |user| @total_time += user.total_time }
+        @users.each { |user| @total_time += user.total_time_of_project(@project.id) }
         @total_time = 1 if @total_time == 0
     end
 

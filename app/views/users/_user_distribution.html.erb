@@ -3,7 +3,7 @@
     <%= link_to user.email, user %>
   </td>
   <td>
-    <%= user.total_time %> hours
+    <%= user.total_time_of_project(@project.id) %> hours
   </td>
   <td>
     <%= "%.2f" % (user.total_time / @total_time * 100) %>%
