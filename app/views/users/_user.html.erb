@@ -1,5 +1,7 @@
 <tr>
-  <td><%= link_to user.email, user %></td>
+  <td>
+    <%= link_to user.email, user %>
+  </td>
   <td>
     <% if user.last_time_spent %>
       <% if user.last_time_spent.finished_at.nil? %>

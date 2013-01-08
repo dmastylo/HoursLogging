@@ -1,0 +1,11 @@
+<tr>
+  <td>
+    <%= link_to user.email, user %>
+  </td>
+  <td>
+    <%= user.total_time %> hours
+  </td>
+  <td>
+    <%= "%.2f" % (user.total_time / @total_time * 100) %>%
+  </td>
+</tr>

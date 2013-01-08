@@ -24,7 +24,7 @@
             <%= render @time_spents %>
           <% else %>
             <tr>
-              <td colspan="5">No one has worked on <%= $project.name %> yet.</td>
+              <td colspan="5">No one has worked on <%= @project.name %> yet.</td>
             </tr>
           <% end %>
         </table>
@@ -32,7 +32,20 @@
         <%= will_paginate(@time_spents) %>
       </div>
       <div class="tab-pane" id="users">
-        
+        <table class="table table-bordered table-striped push-top">
+          <tr>
+            <th>User</th>
+            <th>Total Time</th>
+            <th>Percentage of Total Work</th>
+          </tr>
+          <% if @users.any? %>
+            <%= render partial: 'users/user_distribution', collection: @users, as: :user %>
+          <% else %>
+            <tr>
+              <td colspan="5">No users have worked on <%= @project.name %> yet.</td>
+            </tr>
+          <% end %>
+        </table>
       </div>
     </div>
   </div>

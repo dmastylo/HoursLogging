@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
 
     has_many :time_spents
 
+    def self.project_users(project_id)
+        User.joins(:time_spents).where('time_spents.project_id' => project_id)
+    end
+
     def total_time
       self.time_spents.sum(:total_time)
     end

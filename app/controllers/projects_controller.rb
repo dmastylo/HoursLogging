@@ -13,6 +13,11 @@ class ProjectsController < ApplicationController
     def show
         @project = Project.find(params[:id])
         @time_spents = @project.time_spents.order('created_at DESC').paginate(page: params[:page])
+        @users = User.project_users(@project.id)
+
+        @total_time = 0
+        @users.each { |user| @total_time += user.total_time }
+        @total_time = 1 if @total_time == 0
     end
 
     def create
