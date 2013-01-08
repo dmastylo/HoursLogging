@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
     has_many :time_spents
 
     def self.project_users(project_id)
-        User.joins(:time_spents).where(:time_spents => {:project_id => project_id})
+        User.includes(:time_spents).where('time_spents.project_id = ?', project_id)
     end
 
     def total_time_of_project(project_id)
