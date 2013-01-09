@@ -1,12 +1,12 @@
 <tr>
-  <td>
+  <td class="span2">
     <% if !@project.nil? %>
       <%= link_to time_spent.user.email, time_spent.user %>
     <% elsif !@user.nil? %>
       <%= link_to time_spent.project.name, time_spent.project %>
     <% end %>
   </td>
-  <td class="span6">
+  <td class="span5">
     <div class="expandable-text"><%= time_spent.notes if time_spent.notes.present? %></div>
   </td>
   <td>
@@ -16,7 +16,7 @@
       still working
     <% end %>
   </td>
-  <td>
+  <td class="span2">
     <% if time_spent.total_time.present? %>
       <%= time_spent.total_time %> hours
     <% else %>
