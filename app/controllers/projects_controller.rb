@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+    before_filter :authenticate_user!
+    
     def index
         @projects = Project.sorted_by_recent_work
         @total_time = 0
