@@ -1,7 +1,7 @@
 class TimeSpentsController < ApplicationController
   include TimeSpentsHelper
   before_filter :authenticate_user!
-  before_filter :correct_user, only: [:destroy]
+  before_filter :correct_user, only: [:edit, :update, :destroy]
 
   def index
     @time_spents = TimeSpent.currently_working
@@ -70,7 +70,7 @@ class TimeSpentsController < ApplicationController
 
 private
   def correct_user
-    @time_spent = current_user.time_spents.find_by_id(params[:id])
+    @time_spent = current_user.time_spents.find(params[:id])
     redirect_to root_path if @time_spent.nil? 
   end
 end
