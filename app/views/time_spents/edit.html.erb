@@ -1,14 +1,17 @@
 <% provide(:title, "Edit Time Spent") %>
 <div class="center hero-unit">
-    <h2>Editing Time Spent for Project "<%= @time_spent.project.name %>"</h2>
-    <%= form_for(@time_spent) do |f| %>
-        <div class="field">
-          <%= f.text_area :notes, id: "notes-text-area" %>
-        </div>
-        <div class="field">
-          <%= f.text_field :total_time %>
-        </div>
-        <%= f.hidden_field :editing_note, :value => "editing_note" %>
-        <%= f.submit "Edit Time Spent", id: "edit-button", class: "btn btn-large btn-primary" %>
-    <% end %>
+  <h2>Editing Time Spent for Project "<%= @time_spent.project.name %>"</h2>
+  <%= form_for(@time_spent) do |f| %>
+    <div class="field">
+      <%= f.text_area :notes, id: "notes-text-area" %>
+    </div>
+    <div class="field">
+      <%= f.text_field :total_time %>
+    </div>
+    <div class="field">
+      <%= f.select :project_id, Project.all.collect { |p| [p.name, p.id] }, { :prompt => 'Project' }, class: "input-block-level" %>
+    </div>
+    <%= f.hidden_field :editing_note, :value => "editing_note" %>
+    <%= f.submit "Edit Time Spent", id: "edit-button", class: "btn btn-large btn-primary" %>
+  <% end %>
 </div>

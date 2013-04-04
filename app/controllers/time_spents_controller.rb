@@ -28,8 +28,13 @@ class TimeSpentsController < ApplicationController
       @time_spent = TimeSpent.find(params[:id])
 
       if params[:time_spent][:total_time].to_f <= @time_spent.total_time
-        if @time_spent.update_attributes( { notes: params[:time_spent][:notes],
-                                            finished_at: @time_spent.finished_at - ((@time_spent.total_time - params[:time_spent][:total_time].to_f) * 60).minutes } )
+        attributes_to_update = {
+                                  notes: params[:time_spent][:notes],
+                                  finished_at: @time_spent.finished_at - ((@time_spent.total_time - params[:time_spent][:total_time].to_f) * 60).minutes,
+                                  project_id: params[:time_spent][:project_id]
+                               } 
+                               
+        if @time_spent.update_attributes(attributes_to_update)
           flash[:success] = "Notes updated!"
 
           redirect_to project_path(@time_spent.project)
