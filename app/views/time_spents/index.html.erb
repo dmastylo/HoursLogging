@@ -21,7 +21,7 @@
         <th>Work Time</th>
       </tr>
       <% if @time_spents.any? %>
-          <% @time_spents.each do |time_spent| %>
+        <% @time_spents.each do |time_spent| %>
           <tr>
             <td>
               <%= link_to time_spent.user.email, time_spent.user %>
@@ -33,7 +33,7 @@
               <%= distance_of_time_in_words Time.now - time_spent.created_at %>
             </td>
           </tr>
-          <% end %>
+        <% end %>
       <% else %>
         <tr>
           <td colspan="5">There are no people working right now.</td>
