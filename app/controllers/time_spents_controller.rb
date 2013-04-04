@@ -8,7 +8,7 @@ class TimeSpentsController < ApplicationController
   end
 
   def create
-    @time_spent = current_user.time_spents.build(params[:time_spent])
+    @time_spent = current_user.time_spents.create(params[:time_spent])
     if @time_spent.save
       flash[:notice] = "Started working!"
       redirect_to root_path
@@ -33,10 +33,9 @@ class TimeSpentsController < ApplicationController
                                   finished_at: @time_spent.finished_at - ((@time_spent.total_time - params[:time_spent][:total_time].to_f) * 60).minutes,
                                   project_id: params[:time_spent][:project_id]
                                } 
-                               
+
         if @time_spent.update_attributes(attributes_to_update)
           flash[:success] = "Notes updated!"
-
           redirect_to project_path(@time_spent.project)
         else
           render "edit"
@@ -48,8 +47,8 @@ class TimeSpentsController < ApplicationController
     else
     # stop timing
       @time_spent = current_user.time_spents.last
-
       submission_hash = { notes: params[:time_spent][:notes], finished_at: Time.now }
+      
       if @time_spent.update_attributes(submission_hash)
         flash[:notice] = "Done working!"
         redirect_to user_path(current_user)
