@@ -1,16 +1,12 @@
 class ProjectsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :project, only: [:show, :destroy]
+  before_filter :project, only: [:show, :destroy, :edit, :update]
   
   def index
     @projects = Project.sorted_by_recent_work
     @total_time = 0
     @projects.each { |project| @total_time += project.total_time }
     @total_time = 1 if @total_time == 0
-  end
-
-  def new
-    @project = Project.new
   end
 
   def show
@@ -22,6 +18,10 @@ class ProjectsController < ApplicationController
     @total_time = 1 if @total_time == 0
   end
 
+  def new
+    @project = Project.new
+  end
+  
   def create
     @project = Project.new(params[:project])
     if @project.save
@@ -29,6 +29,18 @@ class ProjectsController < ApplicationController
       redirect_to projects_path
     else
       render 'new'
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @project.update_attributes(params[:project])
+      flash[:success] = "Project updated!"
+      redirect_to project_path(@project)
+    else
+      render "edit"
     end
   end
 
