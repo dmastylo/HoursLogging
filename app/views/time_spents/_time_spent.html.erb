@@ -11,7 +11,7 @@
   </td>
   <td>
     <% if time_spent.finished_at.present? %>
-      <%= distance_of_time_in_words Time.now - time_spent.finished_at %> ago
+      <%= distance_of_time_in_words Time.now, time_spent.finished_at %> ago
     <% else %>
       still working
     <% end %>

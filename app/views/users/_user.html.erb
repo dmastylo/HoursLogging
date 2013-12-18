@@ -7,7 +7,7 @@
       <% if user.last_time_spent.finished_at.nil? %>
         now
       <% else %>
-        <%= distance_of_time_in_words Time.now - user.last_time_spent.finished_at %> ago
+        <%= distance_of_time_in_words Time.now, user.last_time_spent.finished_at %> ago
       <% end %>
     <% else %>
       never
