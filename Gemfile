@@ -6,11 +6,24 @@ gem 'rails'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # Bootstrap
-gem 'bootstrap-sass', '2.0.4'
+gem 'bootstrap-sass'
+
+# Devise
+gem 'devise'
+
+# Thin web server
+gem 'thin'
+
+# jquery rails
+gem 'jquery-rails'
+
+# Pagination
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 # Development
 group :development, :test do
-  gem 'sqlite3', '1.3.5'
+  gem 'sqlite3'
   gem 'rspec-rails'
   gem 'annotate'
   gem 'factory_girl_rails'
@@ -21,27 +34,17 @@ group :production do
   gem 'pg'
 end
 
-# Devise
-gem 'devise'
-
-# Thin web server
-gem 'thin'
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
 end
-
-gem 'jquery-rails'
-gem 'will_paginate'
-gem 'bootstrap-will_paginate'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
