@@ -1,9 +1,7 @@
 source 'https://rubygems.org'
 
+# Rails
 gem 'rails'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # Bootstrap
 gem 'bootstrap-sass'
@@ -21,11 +19,15 @@ gem 'jquery-rails'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
+group :development do
+  gem 'annotate'
+  gem 'convert_to_bootstrap3'
+end
+
 # Development
 group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails'
-  gem 'annotate'
   gem 'factory_girl_rails'
 end
 
@@ -51,12 +53,6 @@ end
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
 
 # To use debugger
 # gem 'debugger'
