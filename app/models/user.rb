@@ -18,41 +18,41 @@
 #
 
 class User < ActiveRecord::Base
-    # Include default devise modules. Others available are:
-    # :token_authenticatable, :confirmable,
-    # :lockable, :timeoutable and :omniauthable
-    devise  :database_authenticatable, :registerable,
-            :recoverable, :rememberable, :trackable, :validatable
 
-    # Setup accessible (or protected) attributes for your model
-    attr_accessible :email, :password, :password_confirmation, :remember_me
-    # attr_accessible :title, :body
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :confirmable,
+  # :lockable, :timeoutable and :omniauthable
+  devise  :database_authenticatable, :registerable,
+          :recoverable, :rememberable, :trackable, :validatable
 
-    has_many :time_spents
+  # Relationships
+  # ========================================================
+  has_many :time_spents
 
-    def self.project_users(project_id)
-        User.includes(:time_spents).where('time_spents.project_id = ?', project_id)
+  # Projects
+  # ========================================================
+  def total_time_of_project(project)
+    project.time_spents.where(user_id: self.id).sum(:total_time)
+    #time_spents.where('project_id = ? ', project_id).sum(:total_time)
+  end
+
+  # Time Spents
+  # ========================================================
+  def total_time
+    self.time_spents.sum(:total_time)
+  end
+
+  def last_time_spent
+    last = self.time_spents.where(finished_at: nil).first
+    last ||= self.time_spents.order('finished_at DESC').first
+  end
+
+  def has_running_task?
+    if !time_spents.last.nil?
+      time_spents.last.finished_at.nil?
+    else
+      false
     end
+  end
 
-    def total_time_of_project(project_id)
-        self.time_spents.where('project_id = ? ', project_id).sum(:total_time)
-    end
-
-    def total_time
-      self.time_spents.sum(:total_time)
-    end
-
-    def last_time_spent
-      last = self.time_spents.where(finished_at: nil).first
-      last ||= self.time_spents.order('finished_at DESC').first
-      last
-    end
-
-    def has_running_task?
-        if !self.time_spents.last.nil?
-            self.time_spents.last.finished_at.nil?
-        else
-            false
-        end
-    end
 end

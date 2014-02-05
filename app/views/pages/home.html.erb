@@ -1,52 +1,55 @@
 <div class="center jumbotron">
   <% if signed_in? %>
     <% provide(:title, 'Dashboard') %>
+
     <h1>Dashboard</h1>
 
-    <% if !@projects.last.nil? %> 
+    <% unless @projects.last.nil? %>
       <h2 id="timing-heading">Timing</h2>
+      <% if @existing_task %>
 
-      <%= form_for(@time_spent) do |f| %>
-        <% if @existing_task %>
-      
-          <h3 class="push-bottom">You have been working for: <span id="stopwatch"></span></h3>
+        <h3 class="push-bottom">You have been working for: <span id="stopwatch"></span></h3>
+
+        <%= form_for @time_spent, url: stop_timing_time_spents_path do |f| %>
           <div class="field">
             <%= f.text_area :notes, placeholder: 'What did you accomplish?', id: 'notes-text-area' %>
           </div>
           <%= f.submit 'Stop Timing', id: 'stop-button', class: 'btn btn-large btn-primary' %>
-      
-          <%= javascript_tag do %>
-            window.start_time = new Date(<%= @time_spent.created_at.to_time.to_i * 1000 %>);
+        <% end %>
 
-            function updateTimer()
+        <%= javascript_tag do %>
+          window.start_time = new Date(<%= @time_spent.created_at.to_time.to_i * 1000 %>);
+
+          function updateTimer()
+          {
+            $stopwatch = $("#stopwatch");
+            current_time = (new Date() - window.start_time) / 1000;
+            time_splits = [3600, 60, 1];
+            timer = "";
+            for(i = 0; i &lt; 3; ++i)
             {
-              $stopwatch = $("#stopwatch");
-              current_time = (new Date() - window.start_time) / 1000;
-              time_splits = [3600, 60, 1];
-              timer = "";
-              for(i = 0; i &lt; 3; ++i)
-              {
-                current_interval = Math.floor(current_time / time_splits[i]);
-                if(timer != "") timer += ":";
-                if(current_interval &lt; 10) timer += "0";
-                timer += current_interval;
-                current_time %= time_splits[i];
-              }
-
-              $stopwatch.html(timer);
-
-              setTimeout(function() { updateTimer(); }, 1000);
+              current_interval = Math.floor(current_time / time_splits[i]);
+              if(timer != "") timer += ":";
+              if(current_interval &lt; 10) timer += "0";
+              timer += current_interval;
+              current_time %= time_splits[i];
             }
 
-            updateTimer();
-          <% end %>
-        <% else %>
+            $stopwatch.html(timer);
 
+            setTimeout(function() { updateTimer(); }, 1000);
+          }
+
+          updateTimer();
+        <% end %>
+      <% else %>
+
+        <%= form_for @time_spent do |f| %>
           <div class="push-bottom">Choose a project to begin working:</div>
           <%= f.collection_select(:project_id, @projects, :id, :name) %>
           <%= f.submit 'Start Timing', id: 'start-button', class: 'btn btn-primary', remote: true %>
-
         <% end %>
+
       <% end %>
     <% end %>
 

@@ -34,10 +34,16 @@ class Project < ActiveRecord::Base
     end
   end
 
+  # Users
+  # ========================================================
+  def project_users
+    User.includes(:time_spents).where('time_spents.project_id = ?', self.id)
+  end
+
   # Time Spents
   # ========================================================
   def total_time
-    time_spents.sum(:total_time)
+    self.time_spents.sum(:total_time)
   end
 
   def last_time_spent

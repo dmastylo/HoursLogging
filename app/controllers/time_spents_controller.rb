@@ -1,70 +1,56 @@
 class TimeSpentsController < ApplicationController
   include TimeSpentsHelper
+
   before_filter :authenticate_user!
   before_filter :correct_user, only: [:edit, :update, :destroy]
 
-  def index
-    @time_spents = TimeSpent.currently_working
-  end
-
   def create
-    @time_spent = current_user.time_spents.create(params[:time_spent])
+    @time_spent = current_user.time_spents.create(time_spent_params)
     if @time_spent.save
-      flash[:notice] = "Started working!"
+      flash[:notice] = 'Started working!'
       redirect_to root_path
     else
       render 'pages/home'
     end
   end
 
+  def index
+    @time_spents = TimeSpent.currently_working
+  end
+
   def edit
     @time_spent = TimeSpent.find(params[:id])
   end
 
-  # Need to calculate total time as well
   def update
-    # editing time spent
-    if params[:time_spent][:editing_note]
-      @time_spent = TimeSpent.find(params[:id])
+    @time_spent = TimeSpent.find(params[:id])
 
-      if params[:time_spent][:total_time].to_f <= @time_spent.total_time
-        attributes_to_update = {
-                                  notes: params[:time_spent][:notes],
-                                  finished_at: @time_spent.finished_at - ((@time_spent.total_time - params[:time_spent][:total_time].to_f) * 60).minutes,
-                                  project_id: params[:time_spent][:project_id]
-                               } 
+    if params[:time_spent][:total_time].to_f <= @time_spent.total_time
+      finished_at = @time_spent.finished_at - ((@time_spent.total_time - params[:time_spent][:total_time].to_f) * 60).minutes
 
-        if @time_spent.update_attributes(attributes_to_update)
-          flash[:success] = "Notes updated!"
-          redirect_to project_path(@time_spent.project)
-        else
-          render "edit"
-        end
+      if @time_spent.update_attributes(time_spent_params(finished_at))
+        flash[:success] = 'Notes updated!'
+        redirect_to project_path(@time_spent.project)
       else
-        flash[:error] = "Total time must be less than previously recorded."
-        render "edit"
+        render 'edit'
       end
     else
-    # stop timing
-      @time_spent = current_user.time_spents.last
-      submission_hash = { notes: params[:time_spent][:notes], finished_at: Time.now }
-      
-      if @time_spent.update_attributes(submission_hash)
-        flash[:notice] = "Done working!"
-        redirect_to user_path(current_user)
-      else
-        flash[:error] = "Please enter what you accomplished." # It really should be the active record error that displays, not this
-        redirect_to root_path
-      end
+      flash[:error] = 'Total time must be less than previously recorded.'
+      render 'edit'
     end
   end
 
-  def new
+  def stop_timing
+    @time_spent = current_user.time_spents.last
 
-  end
-
-  def import
-    @text = params[:csv]
+    if @time_spent.update_attributes(time_spent_params)
+      flash[:notice] = 'Done working!'
+      redirect_to user_path(current_user)
+    else
+      Rails.logger.info(@time_spent.errors.messages.inspect)
+      flash[:error] = 'Please enter what you accomplished.' # It really should be the active record error that displays, not this
+      redirect_to root_path
+    end
   end
 
   def destroy
@@ -72,9 +58,19 @@ class TimeSpentsController < ApplicationController
     redirect_to :back
   end
 
+  def import
+    @text = params[:csv]
+  end
+
 private
+
   def correct_user
     @time_spent = current_user.time_spents.find(params[:id])
     redirect_to root_path if @time_spent.nil? 
   end
+
+  def time_spent_params(finished_at = Time.now)
+    params.require(:time_spent).permit(:notes, :finished_at, :project_id).merge({finished_at: finished_at})
+  end
+
 end

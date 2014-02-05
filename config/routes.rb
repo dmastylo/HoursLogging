@@ -1,12 +1,18 @@
 HoursLogging::Application.routes.draw do
 
-    root to: "pages#home"
+  root to: "pages#home"
 
-    devise_for :users
+  devise_for :users
 
-    resources :users, only: [:index, :show]
-    resources :time_spents, only: [:index, :create, :edit, :update, :destroy]
-    resources :projects, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  resources :users, only: [:index, :show]
+
+  resources :time_spents, only: [:create, :index, :edit, :update, :destroy] do
+    collection do
+      patch "/stop_timing" => "time_spents#stop_timing"
+    end
+  end
+
+  resources :projects, only: [:new, :create, :index, :show, :edit, :update, :destroy]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

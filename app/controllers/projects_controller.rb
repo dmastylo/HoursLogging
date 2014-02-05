@@ -25,10 +25,10 @@ class ProjectsController < ApplicationController
 
   def show
     @time_spents = @project.time_spents.order('created_at DESC').paginate(page: params[:page])
-    @users = User.project_users(@project.id)
+    @users = @project.project_users
 
     @total_time = 0
-    @users.each { |user| @total_time += user.total_time_of_project(@project.id) }
+    @users.each { |user| @total_time += user.total_time_of_project(@project) }
     @total_time = 1 if @total_time == 0
   end
 

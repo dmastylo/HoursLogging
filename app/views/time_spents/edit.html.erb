@@ -16,10 +16,9 @@
 
     <div class="field">
       <%= f.label :project_id %>
-      <%= f.select :project_id, Project.all.collect { |p| [p.name, p.id] }, { :prompt => 'Project' }, class: 'input-block-level' %>
+      <%= f.select :project_id, Project.all.collect { |p| [p.name, p.id] }, { prompt: 'Project' }, class: 'input-block-level' %>
     </div>
 
-    <%= f.hidden_field :editing_note, :value => 'editing_note' %>
     <%= f.submit 'Edit Time Spent', id: 'edit-button', class: 'btn btn-large btn-primary' %>
   <% end %>
 </div>
