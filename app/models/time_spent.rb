@@ -15,7 +15,7 @@
 class TimeSpentValidator < ActiveModel::Validator
 
   def validate(record)
-    if !record.finished_at.nil?
+    unless record.finished_at.nil?
       record.errors[:total_time] << "Total time must be set" if record.total_time.nil?
       record.errors[:notes] << "Notes must be set" if record.notes.empty?
     end
@@ -24,11 +24,12 @@ class TimeSpentValidator < ActiveModel::Validator
 end
 
 class TimeSpent < ActiveRecord::Base
+
   include ActiveModel::Validations
 
   # Callbacks
   # ========================================================
-  before_validation :finish_time
+  before_validation :calculate_total_time
 
   # Relationships
   # ========================================================
@@ -46,8 +47,8 @@ class TimeSpent < ActiveRecord::Base
 
 private
 
-  def finish_time
-    unless finished_at.nil?
+  def calculate_total_time
+    if self.finished_at?
       self.total_time = ((finished_at - created_at) / 1.hour * 4.0).round / 4.0
     end
   end

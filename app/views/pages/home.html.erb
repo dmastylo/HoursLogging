@@ -17,7 +17,7 @@
           <%= f.submit 'Stop Timing', id: 'stop-button', class: 'btn btn-large btn-primary' %>
         <% end %>
 
-        <%= javascript_tag do %>
+        <script>
           window.start_time = new Date(<%= @time_spent.created_at.to_time.to_i * 1000 %>);
 
           function updateTimer()
@@ -26,11 +26,11 @@
             current_time = (new Date() - window.start_time) / 1000;
             time_splits = [3600, 60, 1];
             timer = "";
-            for(i = 0; i &lt; 3; ++i)
+            for(i = 0; i < 3; ++i)
             {
               current_interval = Math.floor(current_time / time_splits[i]);
               if(timer != "") timer += ":";
-              if(current_interval &lt; 10) timer += "0";
+              if(current_interval < 10) timer += "0";
               timer += current_interval;
               current_time %= time_splits[i];
             }
@@ -41,7 +41,7 @@
           }
 
           updateTimer();
-        <% end %>
+        </script>
       <% else %>
 
         <%= form_for @time_spent do |f| %>

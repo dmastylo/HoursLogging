@@ -43,7 +43,7 @@ class TimeSpentsController < ApplicationController
   def stop_timing
     @time_spent = current_user.time_spents.last
 
-    if @time_spent.update_attributes(time_spent_params)
+    if @time_spent.update_attributes(time_spent_params(Time.now))
       flash[:notice] = 'Done working!'
       redirect_to user_path(current_user)
     else
@@ -69,8 +69,8 @@ private
     redirect_to root_path if @time_spent.nil? 
   end
 
-  def time_spent_params(finished_at = Time.now)
-    params.require(:time_spent).permit(:notes, :finished_at, :project_id).merge({finished_at: finished_at})
+  def time_spent_params(finished_at = nil)
+    params.require(:time_spent).permit(:notes, :project_id).merge({ finished_at: finished_at })
   end
 
 end
