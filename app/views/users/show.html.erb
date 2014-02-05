@@ -3,33 +3,38 @@
 <% else %>
   <% provide(:title, "#{@user.email}'s Profile Page") %>
 <% end %>
+
 <div class="row">
-  <div class="span12">
+  <div class="col-sm-12 col-md-12">
     <h2><%= @user.email %>'s History</h2>
   </div>
 </div>
+
 <div class="row">
-  <div class="span12">
+  <div class="col-sm-12 col-md-12">
     <h3>Total Work Time: <%= @user.total_time %> hours</h3>
   </div>
 </div>
+
 <div class="row">
-  <div class="span12">
+  <div class="col-sm-12 col-md-12">
     <table class="table table-bordered table-striped push-top">
-      <tr>
-        <th>Project</th>
-        <th>Description</th>
-        <th>Ended</th>
-        <th>Total Time</th>
-        <th>Actions</th>
-      </tr>
-      <% if @time_spents.any? %>
-        <%= render @time_spents %>
-      <% else %>
+      <tbody>
         <tr>
-          <td colspan="5"><%= @user.email %> hasn't worked yet.</td>
+          <th>Project</th>
+          <th>Description</th>
+          <th>Ended</th>
+          <th>Total Time</th>
+          <th>Actions</th>
         </tr>
-      <% end %>
+        <% if @time_spents.any? %>
+          <%= render @time_spents %>
+        <% else %>
+          <tr>
+            <td colspan="5"><%= @user.email %> hasn't worked yet.</td>
+          </tr>
+        <% end %>
+      </tbody>
     </table>
 
     <%= will_paginate(@time_spents) %>

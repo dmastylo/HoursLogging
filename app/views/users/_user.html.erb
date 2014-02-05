@@ -2,6 +2,7 @@
   <td>
     <%= link_to user.email, user %>
   </td>
+
   <td>
     <% if user.last_time_spent %>
       <% if user.last_time_spent.finished_at.nil? %>
@@ -13,10 +14,12 @@
       never
     <% end %>
   </td>
+
   <td>
     <%= user.total_time %> hours
   </td>
+
   <td>
-    <%= "%.2f" % (user.total_time / @total_time * 100) %>%
+    <%= '%.2f' % (user.total_time / @total_time * 100) %>%
   </td>
 </tr>

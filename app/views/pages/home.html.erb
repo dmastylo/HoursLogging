@@ -1,18 +1,19 @@
-<div class="center hero-unit">
-  <% if user_signed_in? %>
-    <% provide(:title, "Dashboard") %>
+<div class="center jumbotron">
+  <% if signed_in? %>
+    <% provide(:title, 'Dashboard') %>
     <h1>Dashboard</h1>
 
     <% if !@projects.last.nil? %> 
       <h2 id="timing-heading">Timing</h2>
+
       <%= form_for(@time_spent) do |f| %>
         <% if @existing_task %>
       
           <h3 class="push-bottom">You have been working for: <span id="stopwatch"></span></h3>
           <div class="field">
-            <%= f.text_area :notes, placeholder: "What did you accomplish?", id: "notes-text-area" %>
+            <%= f.text_area :notes, placeholder: 'What did you accomplish?', id: 'notes-text-area' %>
           </div>
-          <%= f.submit "Stop Timing", id: "stop-button", class: "btn btn-large btn-primary" %>
+          <%= f.submit 'Stop Timing', id: 'stop-button', class: 'btn btn-large btn-primary' %>
       
           <%= javascript_tag do %>
             window.start_time = new Date(<%= @time_spent.created_at.to_time.to_i * 1000 %>);
@@ -23,11 +24,11 @@
               current_time = (new Date() - window.start_time) / 1000;
               time_splits = [3600, 60, 1];
               timer = "";
-              for(i = 0; i < 3; ++i)
+              for(i = 0; i &lt; 3; ++i)
               {
                 current_interval = Math.floor(current_time / time_splits[i]);
                 if(timer != "") timer += ":";
-                if(current_interval < 10) timer += "0";
+                if(current_interval &lt; 10) timer += "0";
                 timer += current_interval;
                 current_time %= time_splits[i];
               }
@@ -43,7 +44,7 @@
 
           <div class="push-bottom">Choose a project to begin working:</div>
           <%= f.collection_select(:project_id, @projects, :id, :name) %>
-          <%= f.submit "Start Timing", id: "start-button", class: "btn btn-primary", remote: true %>
+          <%= f.submit 'Start Timing', id: 'start-button', class: 'btn btn-primary', remote: true %>
 
         <% end %>
       <% end %>
@@ -54,7 +55,7 @@
 
     <h2>Log the hours you spend on projects without the guesswork</h2>
 
-    <%= link_to "Register", new_user_registration_path, class: "btn btn-large btn-primary" %>
-    <%= link_to "Sign In", new_user_session_path, class: "btn btn-large btn-primary" %>
+    <%= link_to 'Register', new_user_registration_path, class: 'btn btn-large btn-primary' %>
+    <%= link_to 'Sign In', new_user_session_path, class: 'btn btn-large btn-primary' %>
   <% end %>
 </div>

@@ -6,9 +6,11 @@
       <%= link_to time_spent.project.name, time_spent.project %>
     <% end %>
   </td>
+
   <td class="span5">
     <div class="expandable-text"><%= time_spent.notes if time_spent.notes.present? %></div>
   </td>
+
   <td>
     <% if time_spent.finished_at.present? %>
       <%= distance_of_time_in_words Time.now, time_spent.finished_at %> ago
@@ -16,6 +18,7 @@
       still working
     <% end %>
   </td>
+
   <td class="span2">
     <% if time_spent.total_time.present? %>
       <%= time_spent.total_time %> hours
@@ -23,6 +26,7 @@
       n/a
     <% end %>
   </td>
+
   <td class="span2">
     <% if time_spent.user == current_user %>
       <%= link_to "Edit", edit_time_spent_path(time_spent), class: "btn btn-primary" %>
@@ -30,20 +34,3 @@
     <% end %>
   </td>
 </tr>
-<!-- <li>
-  <span class="content">
-    <%= time_spent.notes %>
-  </span>
-  <span class="content">
-    <% if !@project.nil? %>
-      Belongs to User: <%= time_spent.user.email %>
-    <% elsif !@user.nil? %>
-      Belongs to Project: <%= time_spent.project.name %>
-    <% end %>
-  </span>
-  <span class="timestamp">
-    Start time: <%= (time_spent.created_at) %>.
-    Finish time: <%= (time_spent.finished_at) %>.
-    Total time: <%= (time_spent.total_time) %> hours.
-  </span>
-</li> -->
