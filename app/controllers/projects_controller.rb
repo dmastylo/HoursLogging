@@ -1,7 +1,21 @@
 class ProjectsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :project, only: [:show, :destroy, :edit, :update]
-  
+  before_filter :get_project, only: [:show, :destroy, :edit, :update]
+
+  def new
+    @project = Project.new
+  end
+
+  def create
+    @project = Project.new(project_params)
+    if @project.save
+      flash[:notice] = "Project created."
+      redirect_to projects_path
+    else
+      render 'new'
+    end
+  end
+
   def index
     @projects = Project.sorted_by_recent_work
     @total_time = 0
@@ -18,25 +32,11 @@ class ProjectsController < ApplicationController
     @total_time = 1 if @total_time == 0
   end
 
-  def new
-    @project = Project.new
-  end
-  
-  def create
-    @project = Project.new(params[:project])
-    if @project.save
-      flash[:notice] = "Project created."
-      redirect_to projects_path
-    else
-      render 'new'
-    end
-  end
-
   def edit
   end
 
   def update
-    if @project.update_attributes(params[:project])
+    if @project.update_attributes(project_params)
       flash[:success] = "Project updated!"
       redirect_to project_path(@project)
     else
@@ -51,8 +51,14 @@ class ProjectsController < ApplicationController
   end
 
 private
-  def project
+
+  def get_project
     @project = Project.find(params[:id])
-    redirect_to root_path if @project.nil? 
+    redirect_to root_path if @project.nil?
   end
+
+  def project_params
+    params.require(:project).permit(:name)
+  end
+
 end
