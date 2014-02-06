@@ -65,4 +65,7 @@ HoursLogging::Application.configure do
   config.active_support.deprecation = :notify
 
   config.eager_load = true
+
+  # Log SQL and params and whatnot
+  config.logger = Logger.new(STDOUT)
 end
