@@ -1,5 +1,5 @@
 <tr>
-  <td class="span2">
+  <td class="col-md-2">
     <% if !@project.nil? %>
       <%= link_to time_spent.user.email, time_spent.user %>
     <% elsif !@user.nil? %>
@@ -7,7 +7,7 @@
     <% end %>
   </td>
 
-  <td class="span5">
+  <td class="col-md-5">
     <div class="expandable-text"><%= time_spent.notes if time_spent.notes.present? %></div>
   </td>
 
@@ -19,7 +19,7 @@
     <% end %>
   </td>
 
-  <td class="span2">
+  <td class="col-md-2">
     <% if time_spent.total_time.present? %>
       <%= time_spent.total_time %> hours
     <% else %>
@@ -27,7 +27,7 @@
     <% end %>
   </td>
 
-  <td class="span2">
+  <td class="col-md-2">
     <% if time_spent.user == current_user %>
       <%= link_to "Edit", edit_time_spent_path(time_spent), class: "btn btn-primary" %>
       <%= link_to "Delete", time_spent_path(time_spent), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %>
