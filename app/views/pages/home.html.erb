@@ -8,7 +8,7 @@
       <h2 id="timing-heading">Timing</h2>
       <% if @existing_task %>
 
-        <h3 class="push-bottom">You have been working for: <span id="stopwatch"></span></h3>
+        <h3 class="push-bottom">You have been working on <%= @time_spent.project %> for: <span id="stopwatch"></span></h3>
 
         <%= form_for @time_spent, url: stop_timing_time_spents_path do |f| %>
           <div class="field">
