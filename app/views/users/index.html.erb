@@ -1,35 +1,37 @@
 <% provide(:title, 'All Users') %>
 
-<div class="row">
-  <div class="col-sm-12 col-md-12">
-    <h2>All Users</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <h2>All Users</h2>
+    </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-sm-12 col-md-12">
-    <h3><%= @users.count %> User(s) worked a total of <%= @total_time %> hours</h3>
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <h3><%= @users.count %> User(s) worked a total of <%= @total_time %> hours</h3>
+    </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-sm-12 col-md-12">
-    <table class="table table-bordered table-striped push-top">
-      <tbody>
-        <tr>
-          <th>Name</th>
-          <th>Last Worked On</th>
-          <th>Total Time</th>
-          <th>Time Percentage</th>
-        </tr>
-        <% if @users.any? %>
-          <%= render @users %>
-        <% else %>
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <table class="table table-bordered table-striped push-top">
+        <tbody>
           <tr>
-            <td colspan="5">There are no users.</td>
+            <th>Name</th>
+            <th>Last Worked On</th>
+            <th>Total Time</th>
+            <th>Time Percentage</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+          <% if @users.any? %>
+            <%= render @users %>
+          <% else %>
+            <tr>
+              <td colspan="5">There are no users.</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

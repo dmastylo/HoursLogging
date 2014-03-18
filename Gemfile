@@ -24,7 +24,6 @@ gem 'bootstrap-will_paginate'
 
 group :development do
   gem 'annotate'
-  gem 'convert_to_bootstrap3'
 end
 
 # Development

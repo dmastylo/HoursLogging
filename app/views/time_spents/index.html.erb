@@ -1,49 +1,51 @@
 <% provide(:title, 'Currently Working') %>
 
-<div class="row">
-  <div class="col-sm-12 col-md-12">
-    <h2>Currently Working</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <h2>Currently Working</h2>
+    </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-sm-6 col-md-6">
-    <h3>Currently Working (<%= @time_spents.count %>)</h3>
+  <div class="row">
+    <div class="col-sm-6 col-md-6">
+      <h3>Currently Working (<%= @time_spents.count %>)</h3>
+    </div>
+    <div class="col-sm-6 col-md-6">
+      <%= link_to "Work", root_path, class: "pull-right btn btn-primary" %>
+    </div>
   </div>
-  <div class="col-sm-6 col-md-6">
-    <%= link_to "Work", root_path, class: "pull-right btn btn-primary" %>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-sm-12 col-md-12">
-    <table class="table table-bordered table-striped push-top">
-      <tbody>
-        <tr>
-          <th>Name</th>
-          <th>Project</th>
-          <th>Work Time</th>
-        </tr>
-        <% if @time_spents.any? %>
-          <% @time_spents.each do |time_spent| %>
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <table class="table table-bordered table-striped push-top">
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <th>Project</th>
+            <th>Work Time</th>
+          </tr>
+          <% if @time_spents.any? %>
+            <% @time_spents.each do |time_spent| %>
+              <tr>
+                <td>
+                  <%= link_to time_spent.user.email, time_spent.user %>
+                </td>
+                <td>
+                  <%= link_to time_spent.project.name, time_spent.project %>
+                </td>
+                <td>
+                  <%= distance_of_time_in_words Time.now, time_spent.created_at %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
             <tr>
-              <td>
-                <%= link_to time_spent.user.email, time_spent.user %>
-              </td>
-              <td>
-                <%= link_to time_spent.project.name, time_spent.project %>
-              </td>
-              <td>
-                <%= distance_of_time_in_words Time.now, time_spent.created_at %>
-              </td>
+              <td colspan="5">There are no people working right now.</td>
             </tr>
           <% end %>
-        <% else %>
-          <tr>
-            <td colspan="5">There are no people working right now.</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

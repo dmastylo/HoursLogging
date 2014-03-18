@@ -1,0 +1,58 @@
+<% provide(:title, 'Dashboard') %>
+
+<div class="row">
+  <div class="col-md-12">
+    <h1>Dashboard</h1>
+
+    <% unless @projects.last.nil? %>
+      <h2 id="timing-heading">Timing</h2>
+
+      <% if @existing_task %>
+
+        <h3 class="push-bottom">
+          You have been working on <%= @time_spent.project.name %> for: <span id="stopwatch"></span>
+        </h3>
+
+        <%= form_for @time_spent, url: stop_timing_time_spents_path,
+            html: { class: 'form-horizontal' } do |f| %>
+
+          <div class="form-group">
+            <%= f.label :notes, "Accomplishments", class: "col-sm-2 control-label" %>
+            <div class="col-sm-10">
+              <%= f.text_area :notes, placeholder: 'What did you accomplish?', class: "form-control", rows: 3 %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-12">
+              <%= f.submit 'Stop Timing', id: 'stop-button', class: 'btn btn-large btn-primary' %>
+            </div>
+          </div>
+
+        <% end %>
+
+        <%= render 'stopwatch_js' %>
+
+      <% else %>
+
+        <%= form_for @time_spent, html: { class: 'form-horizontal' } do |f| %>
+
+          <div class="form-group">
+            <div class="push-bottom">Choose a project to begin working:</div>
+            <div class="col-sm-12">
+              <%= f.collection_select(:project_id, @projects, :id, :name) %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-12">
+              <%= f.submit 'Start Timing', id: 'start-button', class: 'btn btn-primary', remote: true %>
+            </div>
+          </div>
+
+        <% end %>
+
+      <% end %>
+    <% end %>
+  </div>
+</div>

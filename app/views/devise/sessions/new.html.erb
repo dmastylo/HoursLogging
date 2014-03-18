@@ -1,39 +1,41 @@
-<div class="row">
-  <div class="page-body col-sm-12 col-md-12">
-    <div class="page-header">
-      <h1>Sign in</h1>
-    </div>
-
-    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { class: 'form-horizontal' }) do |f| %>
-      <%= devise_error_messages! %>
-      
-      <div class="form-group">
-        <%= f.label :email, class: 'control-label' %>
-        <div class="controls">
-          <%= f.email_field :email %>
-        </div>
+<div class="container">
+  <div class="row">
+    <div class="page-body col-sm-12 col-md-12">
+      <div class="page-header">
+        <h1>Sign in</h1>
       </div>
 
-      <div class="form-group">
-        <%= f.label :password, class: 'control-label' %>
-        <div class="controls">
-          <%= f.password_field :password %>
-        </div>
-      </div>
+      <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { class: 'form-horizontal' }) do |f| %>
+        <%= devise_error_messages! %>
 
-      <% if devise_mapping.rememberable? -%>
-        <div class="form-group" style="margin-left:160px;">
-          <div class="checkbox">
-            <label>
-              <%= f.check_box :remember_me %> Remember me
-            </label>
+        <div class="form-group">
+          <%= f.label :email, class: 'control-label' %>
+          <div class="controls">
+            <%= f.email_field :email %>
           </div>
         </div>
-      <% end -%>
 
-      <div class="form-actions">
-        <%= f.submit 'Sign in', class: 'btn btn-primary btn-large' %>
-      </div>
-    <% end %>
+        <div class="form-group">
+          <%= f.label :password, class: 'control-label' %>
+          <div class="controls">
+            <%= f.password_field :password %>
+          </div>
+        </div>
+
+        <% if devise_mapping.rememberable? -%>
+          <div class="form-group" style="margin-left:160px;">
+            <div class="checkbox">
+              <label>
+                <%= f.check_box :remember_me %> Remember me
+              </label>
+            </div>
+          </div>
+        <% end -%>
+
+        <div class="form-actions">
+          <%= f.submit 'Sign in', class: 'btn btn-primary btn-large' %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

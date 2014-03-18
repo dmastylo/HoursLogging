@@ -1,64 +1,9 @@
-<div class="center jumbotron">
-  <% if signed_in? %>
-    <% provide(:title, 'Dashboard') %>
-
-    <h1>Dashboard</h1>
-
-    <% unless @projects.last.nil? %>
-      <h2 id="timing-heading">Timing</h2>
-      <% if @existing_task %>
-
-        <h3 class="push-bottom">You have been working on <%= @time_spent.project.name %> for: <span id="stopwatch"></span></h3>
-
-        <%= form_for @time_spent, url: stop_timing_time_spents_path do |f| %>
-          <div class="field">
-            <%= f.text_area :notes, placeholder: 'What did you accomplish?', id: 'notes-text-area' %>
-          </div>
-          <%= f.submit 'Stop Timing', id: 'stop-button', class: 'btn btn-large btn-primary' %>
-        <% end %>
-
-        <script>
-          window.start_time = new Date(<%= @time_spent.created_at.to_time.to_i * 1000 %>);
-
-          function updateTimer()
-          {
-            $stopwatch = $("#stopwatch");
-            current_time = (new Date() - window.start_time) / 1000;
-            time_splits = [3600, 60, 1];
-            timer = "";
-            for(i = 0; i < 3; ++i)
-            {
-              current_interval = Math.floor(current_time / time_splits[i]);
-              if(timer != "") timer += ":";
-              if(current_interval < 10) timer += "0";
-              timer += current_interval;
-              current_time %= time_splits[i];
-            }
-
-            $stopwatch.html(timer);
-
-            setTimeout(function() { updateTimer(); }, 1000);
-          }
-
-          updateTimer();
-        </script>
-      <% else %>
-
-        <%= form_for @time_spent do |f| %>
-          <div class="push-bottom">Choose a project to begin working:</div>
-          <%= f.collection_select(:project_id, @projects, :id, :name) %>
-          <%= f.submit 'Start Timing', id: 'start-button', class: 'btn btn-primary', remote: true %>
-        <% end %>
-
-      <% end %>
+<div class="container">
+  <div class="center jumbotron">
+    <% if signed_in? %>
+      <%= render 'member_homepage' %>
+    <% else %>
+      <%= render 'homepage' %>
     <% end %>
-
-  <% else %> <!-- Not Logged In -->
-    <h1>Welcome to Hours Logging</h1>
-
-    <h2>Log the hours you spend on projects without the guesswork</h2>
-
-    <%= link_to 'Register', new_user_registration_path, class: 'btn btn-large btn-primary' %>
-    <%= link_to 'Sign In', new_user_session_path, class: 'btn btn-large btn-primary' %>
-  <% end %>
+  </div>
 </div>

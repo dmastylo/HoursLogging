@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
 
   # Time Spents
   # ========================================================
+  def working_time_spent(existing_task)
+    existing_task ? time_spents.last : time_spents.build
+  end
+
   def total_time
     self.time_spents.sum(:total_time)
   end
