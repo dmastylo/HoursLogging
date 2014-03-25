@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     if @project.save
-      flash[:notice] = "Project created."
+      flash[:success] = "Project created."
       redirect_to projects_path
     else
       render 'new'
@@ -20,15 +20,19 @@ class ProjectsController < ApplicationController
     @projects = Project.sorted_by_recent_work
     @total_time = 0
     @projects.each { |project| @total_time += project.total_time }
+
+    # Prevent divide by 0
     @total_time = 1 if @total_time == 0
   end
 
   def show
     @time_spents = @project.time_spents.order('created_at DESC').paginate(page: params[:page])
-    @users = @project.project_users
+    @users = @project.members
 
     @total_time = 0
     @users.each { |user| @total_time += user.total_time_of_project(@project) }
+
+    # Prevent divide by 0
     @total_time = 1 if @total_time == 0
   end
 

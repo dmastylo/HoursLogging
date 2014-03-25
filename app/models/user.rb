@@ -27,7 +27,10 @@ class User < ActiveRecord::Base
 
   # Relationships
   # ========================================================
-  has_many :time_spents
+  has_many :time_spents, dependent: :destroy
+  has_many :created_projects, class_name: "Project", foreign_key: "creator_id"
+  has_many :project_users, dependent: :destroy
+  has_many :member_projects, class_name: "Project", through: :project_users, source: :project, dependent: :destroy
 
   # Projects
   # ========================================================

@@ -52,7 +52,7 @@ class TimeSpentsController < ApplicationController
 
   def destroy
     @time_spent.destroy
-    flash[:notice] = 'Deleted Work Time!'
+    flash[:success] = 'Deleted Work Time!'
     redirect_to :back
   end
 

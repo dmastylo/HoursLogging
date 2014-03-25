@@ -4,6 +4,14 @@
   </td>
 
   <td>
+    <%= user.created_projects.count %>
+  </td>
+
+  <td>
+    <%= user.member_projects.count %>
+  </td>
+
+  <td>
     <% if user.last_time_spent %>
       <% if user.last_time_spent.finished_at.nil? %>
         now
