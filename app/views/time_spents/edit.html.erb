@@ -1,26 +1,42 @@
 <% provide(:title, 'Editing Time Spent') %>
 
 <div class="container">
-  <div class="center jumbotron">
-    <h2>Editing Time Spent for Project "<%= @time_spent.project.name %>"</h2>
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <h2>Editing Time Spent for Project "<%= @time_spent.project.name %>"</h2>
+    </div>
+  </div>
 
-    <%= form_for(@time_spent) do |f| %>
-      <div class="field">
-        <%= f.label :notes %>
-        <%= f.text_area :notes, id: 'notes-text-area' %>
-      </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <%= form_for @time_spent, html: { class: 'form-horizontal' } do |f| %>
+        <div class="form-group">
+          <%= f.label :notes, class: 'col-sm-2 control-label' %>
+          <div class="col-sm-10">
+            <%= f.text_area :notes, class: 'form-control', rows: 3 %>
+          </div>
+        </div>
 
-      <div class="field">
-        <%= f.label :total_time %>
-        <%= f.text_field :total_time %>
-      </div>
+        <div class="form-group">
+          <%= f.label :total_time, "Time Worked", class: 'col-sm-2 control-label' %>
+          <div class="col-sm-10">
+            <%= f.text_field :total_time, class: 'form-control' %>
+          </div>
+        </div>
 
-      <div class="field">
-        <%= f.label :project_id %>
-        <%= f.select :project_id, Project.all.collect { |p| [p.name, p.id] }, { prompt: 'Project' }, class: 'input-block-level' %>
-      </div>
+        <div class="form-group">
+          <%= f.label :project_id, "Project", class: 'col-sm-2 control-label' %>
+          <div class="col-sm-10">
+            <%= f.select :project_id, Project.all.collect { |p| [p.name, p.id] }, { prompt: 'Project' }, class: 'form-control' %>
+          </div>
+        </div>
 
-      <%= f.submit 'Edit Time Spent', id: 'edit-button', class: 'btn btn-large btn-primary' %>
-    <% end %>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <%= f.submit 'Edit Time Spent', class: 'btn btn-large btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
