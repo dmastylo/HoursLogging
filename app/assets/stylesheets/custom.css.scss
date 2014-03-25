@@ -1,12 +1,12 @@
 @import "bootstrap";
 
-/* Mixins, Variables, etc. */
+// Mixins, Variables, etc.
 
 $grayLight: #999;
 $grayMediumLight: #eaeaea;
 $grayDarker: #222;
 
-/* Universal */
+// Universal
 
 html
 {
@@ -43,7 +43,7 @@ textarea
   margin-bottom: 20px;
 }
 
-/* Footer */
+// Footer
 
 footer
 {
@@ -68,7 +68,7 @@ footer
   }
 }
 
-/* Time Spents / Projects */
+// Time Spents / Projects
 
 .list-styling
 {

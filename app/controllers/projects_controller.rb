@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :get_project, only: [:show, :destroy, :edit, :update]
+  before_filter :user_in_project_or_public, only: [:show]
+  before_filter :user_is_creator_of_project, only: [:edit, :update, :destroy]
 
   def new
     @project = Project.new
@@ -8,6 +9,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
+
     if @project.save
       flash[:success] = "Project created."
       redirect_to projects_path
@@ -17,7 +19,7 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = Project.sorted_by_recent_work
+    @projects = current_user.projects_sorted_by_recent_work
     @total_time = 0
     @projects.each { |project| @total_time += project.total_time }
 
@@ -56,13 +58,17 @@ class ProjectsController < ApplicationController
 
 private
 
-  def get_project
-    @project = Project.find(params[:id])
-    redirect_to root_path if @project.nil?
+  def user_is_creator_of_project
+    @project = current_user.created_projects.where(id: params[:project_id] || params[:id]).first
+
+    if @project.blank?
+      flash[:error] = "You are not the project admin."
+      redirect_to root_path
+    end
   end
 
   def project_params
-    params.require(:project).permit(:name, :description)
+    params.require(:project).permit(:name, :description, :privacy_type)
   end
 
 end

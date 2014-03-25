@@ -2,9 +2,9 @@ user = User.create!(email: "test@test.com", password: "password9")
 member_user = User.create!(email: "member_test@test.com", password: "password9")
 
 projects = user.created_projects.create!([
-                  { name: "Booth", description: "Marketplace app" },
-                  { name: "Inflation Gem", description: "Gem for calculating inflation" },
-                  { name: "Nutshell Design", description: "My software development consultancy" }
+                  { name: "Booth", description: "Marketplace app, private", privacy_type: Project::PrivacyType::PRIVATE },
+                  { name: "Inflation Gem", description: "Gem for calculating inflation", privacy_type: Project::PrivacyType::PUBLIC },
+                  { name: "Nutshell Design", description: "My software development consultancy", privacy_type: Project::PrivacyType::PRIVATE }
                   ])
 
 projects.each { |project| project.members << member_user }

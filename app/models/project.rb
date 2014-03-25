@@ -20,6 +20,7 @@ class Project < ActiveRecord::Base
   # ========================================================
   validates :name, presence: true
   validates :description, presence: true
+  validates :privacy_type, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 2, message: "is an invalid privacy type" }
 
   # Relationships
   # ========================================================
@@ -28,20 +29,28 @@ class Project < ActiveRecord::Base
   has_many :project_users, dependent: :destroy
   has_many :members, class_name: "User", through: :project_users, source: :user
 
-  # Project methods
+  # Constants
   # ========================================================
-  def self.sorted_by_recent_work
-    # Project.all
-    # task_assignment.sort_by { |ta| ta.try(:project).try(:name) || '' }
-    # Project.all.sort_by { |project| project.last_time_spent.created_at || '' }
-    # Project.all.sort { |x, y| y.last_time_spent.created_at <=> x.last_time_spent.created_at }
-    Project.all.sort do |y, x|
-      if x.last_time_spent && y.last_time_spent
-        x.last_time_spent <=> y.last_time_spent
-      else
-        x.last_time_spent ? 1 : -1
-      end
-    end
+  class PrivacyType
+    PUBLIC = 1
+    PRIVATE = 2
+  end
+
+  # Privacy types
+  # ========================================================
+  def public?
+    privacy_type == PrivacyType::PUBLIC
+  end
+
+  def private?
+    privacy_type == PrivacyType::PRIVATE
+  end
+
+  # Projects
+  # ========================================================
+  # TODO
+  def self.visible_projects(user)
+    Project.joins(:project_users).where('privacy_type = ? OR project_users.user_id = ?', PrivacyType::PUBLIC, user.id)
   end
 
   # Users

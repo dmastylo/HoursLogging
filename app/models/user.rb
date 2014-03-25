@@ -39,6 +39,20 @@ class User < ActiveRecord::Base
     #time_spents.where('project_id = ? ', project_id).sum(:total_time)
   end
 
+  def projects_sorted_by_recent_work
+    # Project.all
+    # task_assignment.sort_by { |ta| ta.try(:project).try(:name) || '' }
+    # Project.all.sort_by { |project| project.last_time_spent.created_at || '' }
+    # Project.all.sort { |x, y| y.last_time_spent.created_at <=> x.last_time_spent.created_at }
+    member_projects.sort do |y, x|
+      if x.last_time_spent && y.last_time_spent
+        x.last_time_spent <=> y.last_time_spent
+      else
+        x.last_time_spent ? 1 : -1
+      end
+    end
+  end
+
   # Time Spents
   # ========================================================
   def working_time_spent(existing_task)

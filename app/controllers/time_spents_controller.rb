@@ -2,15 +2,17 @@ class TimeSpentsController < ApplicationController
   include TimeSpentsHelper
 
   before_filter :authenticate_user!
-  before_filter :get_time_spent, only: [:edit, :update, :destroy]
+  before_filter :user_owns_time_spent, only: [:edit, :update, :destroy]
 
   def create
     @time_spent = current_user.time_spents.create(time_spent_params)
+
     if @time_spent.save
       flash[:notice] = 'Started working!'
       redirect_to root_path
     else
-      render 'pages/home'
+      flash[:error] = "You can't work for a project you're not a part of." # It really should be the active record error that displays, not this
+      redirect_to root_path
     end
   end
 
@@ -62,9 +64,13 @@ class TimeSpentsController < ApplicationController
 
 private
 
-  def get_time_spent
-    @time_spent = current_user.time_spents.find(params[:id])
-    redirect_to root_path if @time_spent.nil?
+  def user_owns_time_spent
+    @time_spent = current_user.time_spents.where(id: params[:time_spent_id] || params[:id]).first
+
+    if @time_spent.blank?
+      flash[:error] = "That's not your time spent."
+      redirect_to root_path
+    end
   end
 
   def time_spent_params(finished_at = nil)

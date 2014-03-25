@@ -14,10 +14,16 @@
 
 class TimeSpentValidator < ActiveModel::Validator
 
-  def validate(record)
-    unless record.finished_at.nil?
-      record.errors[:total_time] << "Total time must be set" if record.total_time.nil?
-      record.errors[:notes] << "Notes must be set" if record.notes.empty?
+  def validate(time_spent)
+    # Only check these if the note is being edited (it's already been timed)
+    unless time_spent.finished_at.nil?
+      time_spent.errors[:total_time] << "must be set" if time_spent.total_time.nil?
+      time_spent.errors[:notes] << "must be set" if time_spent.notes.empty?
+    end
+
+    # Check if the user can work on that project
+    unless time_spent.user.member_projects.include? Project.find(time_spent.project_id)
+      time_spent.errors[:project] << ": You can't work for a project you're not a part of"
     end
   end
 

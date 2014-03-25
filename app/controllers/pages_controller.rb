@@ -3,7 +3,7 @@ class PagesController < ApplicationController
 
   def home
     if signed_in?
-      @projects = Project.sorted_by_recent_work
+      @projects = current_user.projects_sorted_by_recent_work
 
       # Initial setup for first project
       @project = Project.new
