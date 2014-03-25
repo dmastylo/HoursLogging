@@ -1,5 +1,6 @@
 <tr>
   <td><%= link_to project.name, project %></td>
+  <td><%= truncate(project.description, length: 50) %></td>
   <td>
     <% if project.last_time_spent %>
       <% if project.last_time_spent.finished_at.nil? %>

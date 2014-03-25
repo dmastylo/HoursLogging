@@ -1,5 +1,9 @@
 user = User.create!(email: "test@test.com", password: "password9")
-projects = Project.create!([ { name: "Booth" }, { name: "Inflation Gem" }, { name: "Nutshell Design" } ])
+projects = Project.create!([
+                  { name: "Booth", description: "Marketplace app" },
+                  { name: "Inflation Gem", description: "Gem for calculating inflation" },
+                  { name: "Nutshell Design", description: "My software development consultancy" }
+                  ])
 
 projects.each_with_index do |project, index|
   user.time_spents.create!(project_id: project.id,
