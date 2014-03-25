@@ -24,7 +24,7 @@ class Project < ActiveRecord::Base
   # Relationships
   # ========================================================
   belongs_to :creator, class_name: "User"
-  has_many :time_spents
+  has_many :time_spents, dependent: :destroy
   has_many :project_users, dependent: :destroy
   has_many :members, class_name: "User", through: :project_users, source: :user
 
