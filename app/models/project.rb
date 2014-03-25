@@ -43,6 +43,12 @@ class Project < ActiveRecord::Base
     end
   end
 
+  # Users
+  # ========================================================
+  def users_who_worked
+    User.includes(:time_spents).where('time_spents.project_id = ?', self.id)
+  end
+
   # Time Spents
   # ========================================================
   def total_time
