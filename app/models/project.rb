@@ -19,6 +19,7 @@ class Project < ActiveRecord::Base
   # Validations
   # ========================================================
   validates :name, presence: true
+  validates :description, presence: true
 
   # Relationships
   # ========================================================

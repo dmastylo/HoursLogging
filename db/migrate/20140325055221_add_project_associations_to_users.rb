@@ -13,7 +13,7 @@ class AddProjectAssociationsToUsers < ActiveRecord::Migration
     Project.all.each do |project|
       # Set creator to random person at first, needs to be manually changed
       if project.creator.blank? && project.members.blank?
-        project.update_attribute(:creator_id, project.users_who_worked.first)
+        project.update_attribute(:creator_id, User.first.id)
         project.users_who_worked.each { |user| project.members << user }
         project.save
       end
