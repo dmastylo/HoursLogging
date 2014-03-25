@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   end
 
   def total_time
-    self.time_spents.sum(:total_time)
+    time_spents.sum(:total_time)
   end
 
   def last_time_spent

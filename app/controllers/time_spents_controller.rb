@@ -2,7 +2,7 @@ class TimeSpentsController < ApplicationController
   include TimeSpentsHelper
 
   before_filter :authenticate_user!
-  before_filter :get_time_spent, only: [:edit, :update, :cancel_timing, :destroy]
+  before_filter :get_time_spent, only: [:edit, :update, :destroy]
 
   def create
     @time_spent = current_user.time_spents.create(time_spent_params)
@@ -48,10 +48,6 @@ class TimeSpentsController < ApplicationController
       flash[:error] = 'Please enter what you accomplished.' # It really should be the active record error that displays, not this
       redirect_to root_path
     end
-  end
-
-  def cancel_timing
-
   end
 
   def destroy

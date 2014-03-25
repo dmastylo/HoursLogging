@@ -12,7 +12,7 @@ HoursLogging::Application.routes.draw do
     end
   end
 
-  resources :projects, only: [:new, :create, :index, :show, :edit, :update, :destroy]
+  resources :projects
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
