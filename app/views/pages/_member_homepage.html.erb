@@ -25,7 +25,10 @@
 
           <div class="form-group">
             <div class="col-sm-12">
-              <%= f.submit 'Stop Timing', id: 'stop-button', class: 'btn btn-large btn-primary' %>
+              <%= f.submit 'Done Working!', id: 'stop-button', class: 'btn btn-large btn-primary' %>
+              <%= link_to 'Cancel Timing', time_spent_path(@time_spent),
+                  data: { confirm: "Are you sure you want to cancel your work time? This is irreversible!" },
+                  method: :delete, class: "btn btn-danger" %>
             </div>
           </div>
 

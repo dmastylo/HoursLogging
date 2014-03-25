@@ -2,7 +2,7 @@ class TimeSpentsController < ApplicationController
   include TimeSpentsHelper
 
   before_filter :authenticate_user!
-  before_filter :correct_user, only: [:edit, :update, :destroy]
+  before_filter :get_time_spent, only: [:edit, :update, :cancel_timing, :destroy]
 
   def create
     @time_spent = current_user.time_spents.create(time_spent_params)
@@ -19,12 +19,9 @@ class TimeSpentsController < ApplicationController
   end
 
   def edit
-    @time_spent = TimeSpent.find(params[:id])
   end
 
   def update
-    @time_spent = TimeSpent.find(params[:id])
-
     if params[:time_spent][:total_time].to_f <= @time_spent.total_time
       finished_at = @time_spent.finished_at - ((@time_spent.total_time - params[:time_spent][:total_time].to_f) * 60).minutes
 
@@ -44,7 +41,7 @@ class TimeSpentsController < ApplicationController
     @time_spent = current_user.time_spents.last
 
     if @time_spent.update_attributes(time_spent_params(Time.now))
-      flash[:notice] = 'Done working!'
+      flash[:success] = 'Done working!'
       redirect_to user_path(current_user)
     else
       Rails.logger.info(@time_spent.errors.messages.inspect)
@@ -53,8 +50,13 @@ class TimeSpentsController < ApplicationController
     end
   end
 
+  def cancel_timing
+
+  end
+
   def destroy
     @time_spent.destroy
+    flash[:notice] = 'Deleted Work Time!'
     redirect_to :back
   end
 
@@ -64,13 +66,13 @@ class TimeSpentsController < ApplicationController
 
 private
 
-  def correct_user
+  def get_time_spent
     @time_spent = current_user.time_spents.find(params[:id])
-    redirect_to root_path if @time_spent.nil? 
+    redirect_to root_path if @time_spent.nil?
   end
 
   def time_spent_params(finished_at = nil)
-    params.require(:time_spent).permit(:notes, :project_id).merge({ finished_at: finished_at })
+    params.require(:time_spent).permit(:notes, :project_id).merge( { finished_at: finished_at } )
   end
 
 end
