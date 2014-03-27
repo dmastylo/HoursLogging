@@ -21,6 +21,7 @@ class Project < ActiveRecord::Base
   validates :name, presence: true
   validates :description, presence: true
   validates :privacy_type, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 2, message: "is an invalid privacy type" }
+  validates :creator_id, presence: true
 
   # Relationships
   # ========================================================
@@ -49,9 +50,9 @@ class Project < ActiveRecord::Base
   # Projects
   # ========================================================
   # TODO
-  def self.visible_projects(user)
-    Project.joins(:project_users).where('privacy_type = ? OR project_users.user_id = ?', PrivacyType::PUBLIC, user.id)
-  end
+  # def self.visible_projects(user)
+  #   Project.joins(:project_users).where('privacy_type = ? OR project_users.user_id = ?', PrivacyType::PUBLIC, user.id)
+  # end
 
   # Users
   # ========================================================

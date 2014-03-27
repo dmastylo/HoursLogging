@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(project_params)
+    @project = current_user.created_projects.new(project_params)
 
     if @project.save
       flash[:success] = "Project created."
