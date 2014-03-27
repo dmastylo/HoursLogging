@@ -6,7 +6,7 @@
 #  user_id     :integer
 #  project_id  :integer
 #  total_time  :float
-#  notes       :string(255)
+#  notes       :text(255)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  finished_at :datetime

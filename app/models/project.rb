@@ -2,12 +2,13 @@
 #
 # Table name: projects
 #
-#  id          :integer          not null, primary key
-#  name        :string(255)
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  description :string(255)
-#  creator_id  :integer
+#  id           :integer          not null, primary key
+#  name         :string(255)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  description  :text(255)
+#  creator_id   :integer
+#  privacy_type :integer
 #
 
 class Project < ActiveRecord::Base
