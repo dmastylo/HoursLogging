@@ -21,6 +21,14 @@
     <% end %>
   </div>
 
+  <% if @project.billable %>
+    <div class="row">
+      <div class="col-sm-10 col-md-10">
+        <h3>Current Bill Rate: <%= humanized_money_with_symbol @project.hourly_rate %></h3>
+      </div>
+    </div>
+  <% end %>
+
   <div class="row">
     <div class="col-sm-10 col-md-10">
       <h3>Description: <%= @project.description %></h3>
@@ -30,9 +38,9 @@
   <div class="row">
     <div class="col-sm-10 col-md-10">
       <% if @project.public? %>
-        Public project
+        <h3>Public project</h3>
       <% else %>
-        Private project
+        <h3>Private project</h3>
       <% end %>
     </div>
   </div>
