@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140327190051) do
+ActiveRecord::Schema.define(version: 20140329072733) do
 
   create_table "project_users", force: true do |t|
     t.integer  "project_id"
@@ -27,16 +27,19 @@ ActiveRecord::Schema.define(version: 20140327190051) do
     t.text     "description",  limit: 255
     t.integer  "creator_id"
     t.integer  "privacy_type"
+    t.boolean  "billable"
   end
 
   create_table "time_spents", force: true do |t|
     t.integer  "user_id"
     t.integer  "project_id"
     t.float    "total_time"
-    t.text     "notes",       limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.text     "notes",             limit: 255
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.datetime "finished_at"
+    t.boolean  "paid_status"
+    t.integer  "amount_paid_cents"
   end
 
   create_table "users", force: true do |t|

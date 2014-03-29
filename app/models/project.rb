@@ -9,6 +9,7 @@
 #  description  :text(255)
 #  creator_id   :integer
 #  privacy_type :integer
+#  billable     :boolean
 #
 
 class Project < ActiveRecord::Base

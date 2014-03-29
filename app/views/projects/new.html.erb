@@ -29,9 +29,13 @@
         <div class="form-group">
           <%= f.label :privacy_type, "Privacy", class: 'col-sm-1 control-label' %>
           <%= f.hidden_field :privacy_type, id: "privacy-value" %>
-          <div class="col-sm-9 btn-group" id="project-privacy-btn-group">
-            <button type="button" class="btn btn-primary btn-input" data-privacy="<%= Project::PrivacyType::PUBLIC %>"> Public event: anyone can view or join.
-            <button type="button" class="btn btn-primary btn-input" data-privacy="<%= Project::PrivacyType::PRIVATE %>"> Private event: only those I invite.
+          <div class="col-sm-9 btn-group" id="project-privacy-btn-group" data-toggle="buttons">
+            <label class="btn btn-primary btn-input">
+              <input type="radio" name="options" id="public" value="<%= Project::PrivacyType::PUBLIC %>"> Public event: anyone can view or join.
+            </label>
+            <label class="btn btn-primary btn-input active">
+              <input type="radio" name="options" id="private" value="<%= Project::PrivacyType::PRIVATE %>"> Private event: only those I invite.
+            </label>
           </div>
         </div>
 
@@ -46,8 +50,10 @@
 </div>
 
 <script>
+  $('.btn').button();
+
   $('.btn-input').click(function(e)
   {
-    $("#privacy-value").val($(e.currentTarget).data("privacy"));
+    $("#privacy-value").val($(e.currentTarget).children('input[name=options]').val());
   });
 </script>

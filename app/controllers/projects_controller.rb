@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   before_filter :user_is_creator_of_project, only: [:edit, :update, :destroy]
 
   def new
-    @project = Project.new
+    @project = Project.new(privacy_type: Project::PrivacyType::PRIVATE)
   end
 
   def create
