@@ -69,7 +69,8 @@ private
   end
 
   def project_params
-    params.require(:project).permit(:name, :description, :privacy_type, :billable)
+    params.require(:project).permit(:name, :description, :privacy_type, :billable,
+                                    :hourly_rate)
   end
 
 end

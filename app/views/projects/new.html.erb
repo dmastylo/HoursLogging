@@ -2,7 +2,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-sm-12 col-md-12">
+    <div class="col-sm-11 col-md-11">
       <h2>New Project</h2>
     </div>
   </div>
@@ -13,44 +13,55 @@
         <%= render 'shared/error_messages', object: f.object %>
 
         <div class="form-group">
-          <%= f.label :name, class: 'col-sm-1 control-label' %>
-          <div class="col-sm-11">
+          <%= f.label :name, class: 'col-sm-2 control-label' %>
+          <div class="col-sm-6">
             <%= f.text_field :name, class: 'form-control' %>
           </div>
         </div>
 
         <div class="form-group">
-          <%= f.label :description, class: 'col-sm-1 control-label' %>
-          <div class="col-sm-11">
+          <%= f.label :description, class: 'col-sm-2 control-label' %>
+          <div class="col-sm-6">
             <%= f.text_area :description, rows: 3, class: 'form-control' %>
           </div>
         </div>
 
         <div class="form-group">
-          <%= f.label :privacy_type, "Privacy", class: 'col-sm-1 control-label' %>
+          <%= f.label :privacy_type, "Privacy", class: 'col-sm-2 control-label' %>
           <%= f.hidden_field :privacy_type, id: "privacy-value" %>
-          <div class="col-sm-11 btn-group" id="project-privacy-btn-group" data-toggle="buttons">
-            <label class="btn btn-primary btn-privacy">
-              <input type="radio" name="options" id="public" value="<%= Project::PrivacyType::PUBLIC %>"> Public event: anyone can view or join.
+          <div class="col-sm-6 btn-group" id="project-privacy-btn-group" data-toggle="buttons">
+            <label class="btn btn-primary btn-sm btn-privacy">
+              <input type="radio" name="options" id="public" value="<%= Project::PrivacyType::PUBLIC %>"> Public project
             </label>
 
-            <label class="btn btn-primary btn-privacy active">
-              <input type="radio" name="options" id="private" value="<%= Project::PrivacyType::PRIVATE %>"> Private event: only those I invite.
+            <label class="btn btn-primary btn-sm btn-privacy active">
+              <input type="radio" name="options" id="private" value="<%= Project::PrivacyType::PRIVATE %>"> Private project
             </label>
           </div>
         </div>
 
         <div class="form-group">
+          <%= f.label :billable, "Making Money?", class: 'col-sm-2 control-label' %>
           <%= f.hidden_field :billable, id: "billable-value" %>
-          <div class="col-sm-offset-1 col-sm-11 btn-group" data-toggle="buttons">
-            <label class="btn btn-primary btn-billable">
-              <input type="checkbox"> Billable?
+          <div class="col-sm-6 btn-group" data-toggle="buttons">
+            <label class="btn btn-default btn-sm btn-billable">
+              <input type="checkbox"><span class="glyphicon glyphicon-usd"></span>
             </label>
           </div>
         </div>
 
+        <div class="form-group hourly-rate-input">
+          <%= f.label :hourly_rate, class: 'col-sm-2 control-label' %>
+          <div class="col-sm-6">
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
+              <%= f.text_field :hourly_rate, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+
         <div class="form-group">
-          <div class="col-sm-offset-1 col-sm-11">
+          <div class="col-sm-offset-2 col-sm-6">
             <%= f.submit 'Create Project', class: 'btn btn-primary btn-lg btn-success' %>
           </div>
         </div>
@@ -64,14 +75,29 @@
 
   $('.btn-privacy').click(function(e)
   {
-    $("#privacy-value").val($(e.currentTarget).children('input[name=options]').val());
+    $('#privacy-value').val($(e.currentTarget).children('input[name=options]').val());
   });
 
   $('.btn-billable').click(function(e)
   {
-    $billableValue = $("#billable-value");
+    $billableValue = $('#billable-value');
+    $currentTarget = $(e.currentTarget);
+    $hourlyRateInput = $('.hourly-rate-input');
 
     // If it's already active then the click is making it unactive, therefore false
-    $(e.currentTarget).hasClass("active") ? $billableValue.val("false") : $billableValue.val("true");
+    if ($currentTarget.hasClass('active'))
+    {
+      $billableValue.val('false')
+      $currentTarget.removeClass('btn-success').addClass('btn-default');
+      $hourlyRateInput.fadeOut(700, function() {
+        $('#project_hourly_rate').val('');
+      });
+    }
+    else
+    {
+      $billableValue.val('true');
+      $currentTarget.removeClass('btn-default').addClass('btn-success');
+      $hourlyRateInput.fadeIn(700);
+    }
   });
 </script>

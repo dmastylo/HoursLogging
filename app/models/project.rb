@@ -2,14 +2,15 @@
 #
 # Table name: projects
 #
-#  id           :integer          not null, primary key
-#  name         :string(255)
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  description  :text(255)
-#  creator_id   :integer
-#  privacy_type :integer
-#  billable     :boolean
+#  id                :integer          not null, primary key
+#  name              :string(255)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  description       :text(255)
+#  creator_id        :integer
+#  privacy_type      :integer
+#  billable          :boolean
+#  hourly_rate_cents :integer
 #
 
 class Project < ActiveRecord::Base
@@ -31,6 +32,10 @@ class Project < ActiveRecord::Base
   has_many :time_spents, dependent: :destroy
   has_many :project_users, dependent: :destroy
   has_many :members, class_name: "User", through: :project_users, source: :user
+
+  # Money
+  # ========================================================
+  monetize :hourly_rate_cents, numericality: { greater_than_or_equal_to: 0 }
 
   # Constants
   # ========================================================
