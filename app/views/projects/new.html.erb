@@ -29,19 +29,29 @@
         <div class="form-group">
           <%= f.label :privacy_type, "Privacy", class: 'col-sm-1 control-label' %>
           <%= f.hidden_field :privacy_type, id: "privacy-value" %>
-          <div class="col-sm-9 btn-group" id="project-privacy-btn-group" data-toggle="buttons">
-            <label class="btn btn-primary btn-input">
+          <div class="col-sm-11 btn-group" id="project-privacy-btn-group" data-toggle="buttons">
+            <label class="btn btn-primary btn-privacy">
               <input type="radio" name="options" id="public" value="<%= Project::PrivacyType::PUBLIC %>"> Public event: anyone can view or join.
             </label>
-            <label class="btn btn-primary btn-input active">
+
+            <label class="btn btn-primary btn-privacy active">
               <input type="radio" name="options" id="private" value="<%= Project::PrivacyType::PRIVATE %>"> Private event: only those I invite.
             </label>
           </div>
         </div>
 
         <div class="form-group">
+          <%= f.hidden_field :billable, id: "billable-value" %>
+          <div class="col-sm-offset-1 col-sm-11 btn-group" data-toggle="buttons">
+            <label class="btn btn-primary btn-billable">
+              <input type="checkbox"> Billable?
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
           <div class="col-sm-offset-1 col-sm-11">
-            <%= f.submit 'Create Project', class: 'btn btn-primary' %>
+            <%= f.submit 'Create Project', class: 'btn btn-primary btn-lg btn-success' %>
           </div>
         </div>
       <% end %>
@@ -52,8 +62,16 @@
 <script>
   $('.btn').button();
 
-  $('.btn-input').click(function(e)
+  $('.btn-privacy').click(function(e)
   {
     $("#privacy-value").val($(e.currentTarget).children('input[name=options]').val());
+  });
+
+  $('.btn-billable').click(function(e)
+  {
+    $billableValue = $("#billable-value");
+
+    // If it's already active then the click is making it unactive, therefore false
+    $(e.currentTarget).hasClass("active") ? $billableValue.val("false") : $billableValue.val("true");
   });
 </script>

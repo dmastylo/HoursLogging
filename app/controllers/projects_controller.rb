@@ -4,7 +4,8 @@ class ProjectsController < ApplicationController
   before_filter :user_is_creator_of_project, only: [:edit, :update, :destroy]
 
   def new
-    @project = Project.new(privacy_type: Project::PrivacyType::PRIVATE)
+    @project = Project.new(privacy_type: Project::PrivacyType::PRIVATE,
+                           billable: false)
   end
 
   def create
@@ -68,7 +69,7 @@ private
   end
 
   def project_params
-    params.require(:project).permit(:name, :description, :privacy_type)
+    params.require(:project).permit(:name, :description, :privacy_type, :billable)
   end
 
 end
