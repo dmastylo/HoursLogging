@@ -6,6 +6,7 @@ class TimeSpentsController < ApplicationController
 
   def create
     @time_spent = current_user.time_spents.create(time_spent_params)
+    @time_spent.set_amount_paid
 
     if @time_spent.save
       flash[:notice] = 'Started working!'
@@ -74,7 +75,8 @@ private
   end
 
   def time_spent_params(finished_at = nil)
-    params.require(:time_spent).permit(:notes, :project_id).merge( { finished_at: finished_at } )
+    params.require(:time_spent).permit(:notes, :project_id, :paid_status,:amount_paid)
+                               .merge( { finished_at: finished_at } )
   end
 
 end

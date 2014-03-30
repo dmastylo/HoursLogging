@@ -6,10 +6,11 @@
       $billableValue = $('#billable-value');
       $hourlyRateFormGroup = $('.hourly-rate-input');
       $hourlyRateInput = $('#project_hourly_rate');
+      $btnBillable = $('.btn-billable');
 
       if ($billableValue.val() === "t")
       {
-        $('.btn-billable').addClass('btn-success active');
+        $btnBillable.addClass('btn-success active');
         $hourlyRateFormGroup.show();
         $billableValue.val('true');
       }
@@ -19,13 +20,13 @@
         $('#privacy-value').val($(e.currentTarget).children('input[name=options]').val());
       });
 
-      $('.btn-billable').click(function(e)
+      $btnBillable.click(function(e)
       {
         $currentTarget = $(e.currentTarget);
 
-        // If it's already active then the click is making it unactive, therefore false
         if ($currentTarget.hasClass('active'))
         {
+          // If it's already active then the click is making it unactive, therefore false
           $billableValue.val('f')
           $currentTarget.removeClass('btn-success').addClass('btn-default');
           $hourlyRateFormGroup.fadeOut(700, function() {

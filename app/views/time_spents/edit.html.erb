@@ -26,10 +26,32 @@
           </div>
         </div>
 
+        <% if @time_spent.project.billable? %>
+          <div class="form-group">
+            <%= f.label :paid_status, "Paid for?", class: 'col-sm-2 control-label' %>
+            <%= f.hidden_field :paid_status, id: "paid-status-value" %>
+            <div class="col-sm-6 btn-group" data-toggle="buttons">
+              <label class="btn btn-default btn-sm btn-paid-status">
+                <input type="checkbox"><span class="glyphicon glyphicon-usd"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group amount-paid-input">
+            <%= f.label :amount_paid, class: 'col-sm-2 control-label' %>
+            <div class="col-sm-6">
+              <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <%= f.text_field :amount_paid, class: 'form-control' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
         <div class="form-group">
           <%= f.label :project_id, "Project", class: 'col-sm-2 control-label' %>
           <div class="col-sm-10">
-            <%= f.select :project_id, current_user.projects_sorted_by_recent_work.collect { |p| [p.name, p.id] },
+            <%= f.select :project_id,current_user.projects_sorted_by_recent_work.collect { |p| [p.name, p.id] },
                          { prompt: 'Project' }, class: 'form-control' %>
           </div>
         </div>
@@ -43,3 +65,5 @@
     </div>
   </div>
 </div>
+
+<% render 'time_spent_edit_script' %>

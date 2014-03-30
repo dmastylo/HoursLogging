@@ -44,6 +44,10 @@ class TimeSpent < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
 
+  # Money
+  # ========================================================
+  monetize :amount_paid_cents, numericality: { greater_than: 0 }, allow_nil: true
+
   # Validations
   # ========================================================
   validates :user_id, presence: true
@@ -53,10 +57,16 @@ class TimeSpent < ActiveRecord::Base
     TimeSpent.where("finished_at IS NULL")
   end
 
+  def set_amount_paid
+    if project.billable?
+      self.amount_paid = project.hourly_rate
+    end
+  end
+
 private
 
   def calculate_total_time
-    if self.finished_at?
+    if finished_at?
       self.total_time = ((finished_at - created_at) / 1.hour * 4.0).round / 4.0
     end
   end

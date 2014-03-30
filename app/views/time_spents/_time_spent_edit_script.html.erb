@@ -1,0 +1,33 @@
+<% content_for(:before_body_end) do %>
+  <script>
+    $(function()
+    {
+      $('.btn').button();
+      $paidStatusValue = $('#paid-status-value');
+      $btnPaidStatus = $('.btn-paid-status');
+
+      if ($paidStatusValue.val() === "t")
+      {
+        $btnPaidStatus.addClass('btn-success active');
+        $paidStatusValue.val('true');
+      }
+
+      $btnPaidStatus.click(function(e)
+      {
+        $currentTarget = $(e.currentTarget);
+
+        if ($currentTarget.hasClass('active'))
+        {
+          // If it's already active then the click is making it unactive, therefore false
+          $paidStatusValue.val('f')
+          $currentTarget.removeClass('btn-success').addClass('btn-default');
+        }
+        else
+        {
+          $paidStatusValue.val('t');
+          $currentTarget.removeClass('btn-default').addClass('btn-success');
+        }
+      });
+    });
+  </script>
+<% end %>
