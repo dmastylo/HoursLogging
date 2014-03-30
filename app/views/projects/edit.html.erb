@@ -10,44 +10,10 @@
   <div class="row">
     <div class="col-sm-12 col-md-12">
       <%= form_for @project, html: { class: 'form-horizontal' } do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
-
-        <div class="form-group">
-          <%= f.label :name, class: 'col-sm-1 control-label' %>
-          <div class="col-sm-11">
-            <%= f.text_field :name, class: 'form-control' %>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :description, class: 'col-sm-1 control-label' %>
-          <div class="col-sm-11">
-            <%= f.text_area :description, rows: 3, class: 'form-control' %>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :privacy_type, "Privacy", class: 'col-sm-1 control-label' %>
-          <%= f.hidden_field :privacy_type, id: "privacy-value" %>
-          <div class="col-sm-9 btn-group" id="project-privacy-btn-group">
-            <button type="button" class="btn btn-primary btn-input" data-privacy="<%= Project::PrivacyType::PUBLIC %>"> Public event: anyone can view or join.
-            <button type="button" class="btn btn-primary btn-input" data-privacy="<%= Project::PrivacyType::PRIVATE %>"> Private event: only those I invite.
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-sm-offset-1 col-sm-11">
-            <%= f.submit 'Update Project', class: 'btn btn-primary' %>
-          </div>
-        </div>
+        <% render "forms", f: f %>
       <% end %>
     </div>
   </div>
 </div>
 
-<script>
-  $('.btn-input').click(function(e)
-  {
-    $("#privacy-value").val($(e.currentTarget).data("privacy"));
-  });
-</script>
+<% render "project_form_script" %>

@@ -25,5 +25,9 @@
     <%= yield %>
 
     <%= render 'layouts/footer' %>
+
+    <% if content_for?(:before_body_end) %>
+      <%= yield(:before_body_end) %>
+    <% end %>
   </body>
 </html>

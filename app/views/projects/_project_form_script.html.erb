@@ -1,0 +1,44 @@
+<% content_for(:before_body_end) do %>
+  <script>
+    $(function()
+    {
+      $('.btn').button();
+      $billableValue = $('#billable-value');
+      $hourlyRateFormGroup = $('.hourly-rate-input');
+      $hourlyRateInput = $('#project_hourly_rate');
+
+      if ($billableValue.val() === "t")
+      {
+        $('.btn-billable').addClass('btn-success active');
+        $hourlyRateFormGroup.show();
+        $billableValue.val('true');
+      }
+
+      $('.btn-privacy').click(function(e)
+      {
+        $('#privacy-value').val($(e.currentTarget).children('input[name=options]').val());
+      });
+
+      $('.btn-billable').click(function(e)
+      {
+        $currentTarget = $(e.currentTarget);
+
+        // If it's already active then the click is making it unactive, therefore false
+        if ($currentTarget.hasClass('active'))
+        {
+          $billableValue.val('f')
+          $currentTarget.removeClass('btn-success').addClass('btn-default');
+          $hourlyRateFormGroup.fadeOut(700, function() {
+            $hourlyRateInput.val('');
+          });
+        }
+        else
+        {
+          $billableValue.val('t');
+          $currentTarget.removeClass('btn-default').addClass('btn-success');
+          $hourlyRateFormGroup.fadeIn(700);
+        }
+      });
+    });
+  </script>
+<% end %>

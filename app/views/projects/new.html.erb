@@ -10,105 +10,10 @@
   <div class="row">
     <div class="col-sm-12 col-md-12">
       <%= form_for @project, html: { class: 'form-horizontal' } do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
-
-        <div class="form-group">
-          <%= f.label :name, class: 'col-sm-2 control-label' %>
-          <div class="col-sm-6">
-            <%= f.text_field :name, class: 'form-control' %>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :description, class: 'col-sm-2 control-label' %>
-          <div class="col-sm-6">
-            <%= f.text_area :description, rows: 3, class: 'form-control' %>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :privacy_type, "Privacy", class: 'col-sm-2 control-label' %>
-          <%= f.hidden_field :privacy_type, id: "privacy-value" %>
-          <div class="col-sm-6 btn-group" id="project-privacy-btn-group" data-toggle="buttons">
-            <label class="btn btn-primary btn-sm btn-privacy">
-              <input type="radio" name="options" id="public" value="<%= Project::PrivacyType::PUBLIC %>"> Public project
-            </label>
-
-            <label class="btn btn-primary btn-sm btn-privacy active">
-              <input type="radio" name="options" id="private" value="<%= Project::PrivacyType::PRIVATE %>"> Private project
-            </label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :billable, "Making Money?", class: 'col-sm-2 control-label' %>
-          <%= f.hidden_field :billable, id: "billable-value" %>
-          <div class="col-sm-6 btn-group" data-toggle="buttons">
-            <label class="btn btn-default btn-sm btn-billable">
-              <input type="checkbox"><span class="glyphicon glyphicon-usd"></span>
-            </label>
-          </div>
-        </div>
-
-        <div class="form-group hourly-rate-input">
-          <%= f.label :hourly_rate, class: 'col-sm-2 control-label' %>
-          <div class="col-sm-6">
-            <div class="input-group">
-              <span class="input-group-addon">$</span>
-              <%= f.text_field :hourly_rate, class: 'form-control' %>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-6">
-            <%= f.submit 'Create Project', class: 'btn btn-primary btn-lg btn-success' %>
-          </div>
-        </div>
+        <% render "forms", f: f %>
       <% end %>
     </div>
   </div>
 </div>
 
-<script>
-  $(function()
-  {
-    $('.btn').button();
-    $billableValue = $('#billable-value');
-    $hourlyRateFormGroup = $('.hourly-rate-input');
-    $hourlyRateInput = $('#project_hourly_rate');
-
-    if ($billableValue.val() === "true")
-    {
-      $('.btn-billable').addClass('btn-success active');
-      $hourlyRateFormGroup.show();
-      $billableValue.val('true');
-    }
-
-    $('.btn-privacy').click(function(e)
-    {
-      $('#privacy-value').val($(e.currentTarget).children('input[name=options]').val());
-    });
-
-    $('.btn-billable').click(function(e)
-    {
-      $currentTarget = $(e.currentTarget);
-
-      // If it's already active then the click is making it unactive, therefore false
-      if ($currentTarget.hasClass('active'))
-      {
-        $billableValue.val('false')
-        $currentTarget.removeClass('btn-success').addClass('btn-default');
-        $hourlyRateFormGroup.fadeOut(700, function() {
-          $hourlyRateInput.val('');
-        });
-      }
-      else
-      {
-        $billableValue.val('true');
-        $currentTarget.removeClass('btn-default').addClass('btn-success');
-        $hourlyRateFormGroup.fadeIn(700);
-      }
-    });
-  });
-</script>
+<% render "project_form_script" %>
