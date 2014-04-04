@@ -12,7 +12,7 @@
       {
         $btnBillable.addClass('btn-success active');
         $hourlyRateFormGroup.show();
-        $billableValue.val('true');
+        $billableValue.val("t");
       }
 
       $('.btn-privacy').click(function(e)
@@ -27,7 +27,7 @@
         if ($currentTarget.hasClass('active'))
         {
           // If it's already active then the click is making it unactive, therefore false
-          $billableValue.val('f')
+          $billableValue.val("f")
           $currentTarget.removeClass('btn-success').addClass('btn-default');
           $hourlyRateFormGroup.fadeOut(700, function() {
             $hourlyRateInput.val('');
@@ -35,7 +35,7 @@
         }
         else
         {
-          $billableValue.val('t');
+          $billableValue.val("t");
           $currentTarget.removeClass('btn-default').addClass('btn-success');
           $hourlyRateFormGroup.fadeIn(700);
         }

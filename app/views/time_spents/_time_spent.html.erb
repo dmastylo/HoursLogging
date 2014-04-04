@@ -7,7 +7,7 @@
     <% end %>
   </td>
 
-  <td class="col-md-5">
+  <td class="col-md-3">
     <div class="expandable-text"><%= time_spent.notes if time_spent.notes.present? %></div>
   </td>
 
@@ -26,6 +26,12 @@
       n/a
     <% end %>
   </td>
+
+  <% if @project.billable? %>
+    <td class="col-md-1">
+      <%= time_spent.paid_status %>
+    </td>
+  <% end %>
 
   <td class="col-md-2">
     <% if time_spent.user == current_user %>

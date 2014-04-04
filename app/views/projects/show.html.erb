@@ -64,7 +64,10 @@
                 <th>User</th>
                 <th>Description</th>
                 <th>Ended</th>
-                <th>Total Time</th>
+                <th>Hours Worked</th>
+                <% if @project.billable? %>
+                  <th>Paid for?</th>
+                <% end %>
                 <th>Actions</th>
               </tr>
               <% if @time_spents.any? %>
