@@ -65,16 +65,14 @@
                 <th>Description</th>
                 <th>Ended</th>
                 <th>Hours Worked</th>
-                <% if @project.billable? %>
-                  <th>Paid for?</th>
-                <% end %>
+                <th>Paid for?</th>
                 <th>Actions</th>
               </tr>
               <% if @time_spents.any? %>
                 <%= render @time_spents %>
               <% else %>
                 <tr>
-                  <td colspan="5">No one has worked on <%= @project.name %> yet.</td>
+                  <td colspan="6">No one has worked on <%= @project.name %> yet.</td>
                 </tr>
               <% end %>
             </tbody>

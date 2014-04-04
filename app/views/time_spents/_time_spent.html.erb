@@ -1,9 +1,9 @@
 <tr>
   <td class="col-md-2">
-    <% if !@project.nil? %>
-      <%= link_to time_spent.user.email, time_spent.user %>
-    <% elsif !@user.nil? %>
+    <% if @project.nil? %>
       <%= link_to time_spent.project.name, time_spent.project %>
+    <% elsif @user.nil? %>
+      <%= link_to time_spent.user.email, time_spent.user %>
     <% end %>
   </td>
 
@@ -27,11 +27,11 @@
     <% end %>
   </td>
 
-  <% if @project.billable? %>
-    <td class="col-md-1">
+  <td class="col-md-1">
+    <% if time_spent.project.billable? %>
       <%= time_spent.paid_status %>
-    </td>
-  <% end %>
+    <% end %>
+  </td>
 
   <td class="col-md-2">
     <% if time_spent.user == current_user %>
