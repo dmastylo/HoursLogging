@@ -19,25 +19,35 @@
 
   <div class="row">
     <div class="col-sm-12 col-md-12">
-      <table class="table table-bordered table-striped push-top">
-        <tbody>
-          <tr>
-            <th>Project</th>
-            <th>Description</th>
-            <th>Ended</th>
-            <th>Hours Worked</th>
-            <th>Paid for?</th>
-            <th>Actions</th>
-          </tr>
-          <% if @time_spents.any? %>
-            <%= render @time_spents %>
-          <% else %>
+      <%= form_tag mark_as_paid_time_spents_path, method: :put do %>
+        <table class="table table-bordered table-striped push-top">
+          <tbody>
+
             <tr>
-              <td colspan="6"><%= @user.email %> hasn't worked yet.</td>
+              <th>Project</th>
+              <th>Description</th>
+              <th>Ended</th>
+              <th>Hours Worked</th>
+              <th>Paid for?</th>
+              <th>Actions</th>
+              <th>Mark Paid</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+
+            <% if @time_spents.any? %>
+              <%= render @time_spents %>
+              <tr>
+                <td colspan="6"></td>
+                <td><%= submit_tag "Mark As Paid", class: "btn btn-primary" %></td>
+              </tr>
+            <% else %>
+              <tr>
+                <td colspan="7"><%= @user.email %> hasn't worked yet.</td>
+              </tr>
+            <% end %>
+
+          </tbody>
+        </table>
+      <% end %>
 
       <%= will_paginate(@time_spents) %>
     </div>

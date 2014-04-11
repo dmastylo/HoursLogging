@@ -9,6 +9,7 @@ HoursLogging::Application.routes.draw do
   resources :time_spents, only: [:create, :index, :edit, :update, :destroy] do
     collection do
       patch "/stop_timing" => "time_spents#stop_timing"
+      put "/mark_as_paid" => "time_spents#mark_as_paid"
     end
   end
 

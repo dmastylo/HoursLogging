@@ -40,6 +40,16 @@ class TimeSpentsController < ApplicationController
     end
   end
 
+  def destroy
+    @time_spent.destroy
+    flash[:success] = 'Deleted Work Time!'
+    redirect_to :back
+  end
+
+  def import
+    @text = params[:csv]
+  end
+
   def stop_timing
     @time_spent = current_user.time_spents.last
 
@@ -53,14 +63,14 @@ class TimeSpentsController < ApplicationController
     end
   end
 
-  def destroy
-    @time_spent.destroy
-    flash[:success] = 'Deleted Work Time!'
-    redirect_to :back
-  end
+  def mark_as_paid
+    # Only allow time_spents owned by the user to be modified
+    params[:time_spent_ids] = params[:time_spent_ids].map(&:to_i) & current_user.time_spents.pluck(:id)
 
-  def import
-    @text = params[:csv]
+    # Single SQL statement, skips validations and callbacks
+    TimeSpent.where(id: params[:time_spent_ids]).update_all(paid_status: true)
+
+    redirect_to :back
   end
 
 private

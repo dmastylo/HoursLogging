@@ -19,7 +19,7 @@
     <% end %>
   </td>
 
-  <td class="col-md-2">
+  <td class="col-md-1">
     <% if time_spent.total_time.present? %>
       <%= time_spent.total_time %> hours
     <% else %>
@@ -39,4 +39,12 @@
       <%= link_to "Delete", time_spent_path(time_spent), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %>
     <% end %>
   </td>
+
+  <% if time_spent.project.billable? %>
+    <td class="col-md-1">
+      <% if time_spent.user == current_user %>
+        <%= check_box_tag "time_spent_ids[]", time_spent.id %>
+      <% end %>
+    </td>
+  <% end %>
 </tr>
