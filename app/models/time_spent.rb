@@ -60,6 +60,7 @@ class TimeSpent < ActiveRecord::Base
   def set_amount_paid
     if project.billable?
       self.amount_paid = project.hourly_rate
+      self.paid_status = false
     end
   end
 

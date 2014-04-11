@@ -82,11 +82,11 @@ class Project < ActiveRecord::Base
   # Money Made
   # ========================================================
   def total_paid
-    time_spents.where(paid_status: true).sum(:amount_paid_cents) / 100
+    time_spents.where(paid_status: true).sum("amount_paid_cents * total_time") / 100
   end
 
   def amount_owed
-    time_spents.where(paid_status: false).sum(:amount_paid_cents) / 100
+    time_spents.where(paid_status: false).sum("amount_paid_cents * total_time") / 100
   end
 
 private
