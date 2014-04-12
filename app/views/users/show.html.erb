@@ -27,17 +27,21 @@
               <th>Project</th>
               <th>Description</th>
               <th>Ended</th>
-              <th>Hours Worked</th>
+              <th>Hours</th>
               <th>Paid for?</th>
+              <th>Hourly Rate</th>
               <th>Actions</th>
               <th>Mark Paid</th>
             </tr>
 
             <% if @time_spents.any? %>
               <%= render @time_spents %>
+
+              <!-- Last row of the table with the button aligning with the
+                   mark as paid checkboxes -->
               <tr>
-                <td colspan="6"></td>
-                <td><%= submit_tag "Mark As Paid", class: "btn btn-primary" %></td>
+                <td colspan="7"></td>
+                <td><%= submit_tag "Mark Paid", class: "btn btn-primary" %></td>
               </tr>
             <% else %>
               <tr>

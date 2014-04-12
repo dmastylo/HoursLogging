@@ -79,11 +79,13 @@
                   <th>Ended</th>
                   <th>Hours</th>
                   <th>Paid for?</th>
+                  <th>Hourly Rate</th>
                   <th>Actions</th>
                   <% if @project.billable? %>
                     <th>Mark Paid</th>
                   <% end %>
                 </tr>
+
                 <% if @time_spents.any? %>
                   <%= render @time_spents %>
 
@@ -91,15 +93,17 @@
                        mark as paid checkboxes -->
                   <% if @project.billable? %>
                     <tr>
-                      <td colspan="6"></td>
-                      <td><%= submit_tag "Mark As Paid", class: "btn btn-primary" %></td>
+                      <td colspan="7"></td>
+                      <td><%= submit_tag "Mark Paid", class: "btn btn-primary" %></td>
                     </tr>
                   <% end %>
+
                 <% else %>
                   <tr>
                     <td colspan="7">No one has worked on <%= @project.name %> yet.</td>
                   </tr>
                 <% end %>
+
               </tbody>
             </table>
           <% end %>

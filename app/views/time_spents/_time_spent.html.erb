@@ -29,7 +29,13 @@
 
   <td class="col-md-1">
     <% if time_spent.project.billable? %>
-      <%= time_spent.paid_status %>
+      <%= render "time_spents/paid_status", time_spent: time_spent %>
+    <% end %>
+  </td>
+
+  <td class="col-md-1">
+    <% if time_spent.project.billable? %>
+      <%= time_spent.amount_paid %>
     <% end %>
   </td>
 
