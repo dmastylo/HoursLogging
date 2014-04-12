@@ -5,6 +5,11 @@ class TimeSpentsController < ApplicationController
   before_filter :user_owns_time_spent, only: [:edit, :update, :destroy]
 
   def create
+    if current_user.currently_working?
+      flash[:error] = "You are already working!"
+      redirect_to root_path
+    end
+
     @time_spent = current_user.time_spents.create(time_spent_params)
     @time_spent.set_amount_paid
 

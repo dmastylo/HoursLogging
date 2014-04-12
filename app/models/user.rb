@@ -55,6 +55,10 @@ class User < ActiveRecord::Base
 
   # Time Spents
   # ========================================================
+  def currently_working?
+    !time_spents.where("finished_at IS NULL").blank?
+  end
+
   def working_time_spent(existing_task)
     existing_task ? time_spents.last : time_spents.build
   end
