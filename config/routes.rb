@@ -1,6 +1,6 @@
 HoursLogging::Application.routes.draw do
 
-  root to: "pages#home"
+  root to: "pages#index"
 
   devise_for :users
 

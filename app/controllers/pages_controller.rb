@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   before_filter :signed_in?
 
-  def home
+  def index
     if signed_in?
       @projects = current_user.projects_sorted_by_recent_work
 

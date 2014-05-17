@@ -4,7 +4,9 @@
   <div class="col-md-12">
     <h1>Dashboard</h1>
 
-    <% unless @projects.last.nil? %>
+    <% if @projects.last.nil? %>
+      <%= link_to "Create a project first", new_project_path %>
+    <% else %>
       <h2 id="timing-heading">Timing</h2>
 
       <% if @existing_task %>
