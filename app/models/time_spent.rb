@@ -17,8 +17,8 @@
 class TimeSpentValidator < ActiveModel::Validator
 
   def validate(time_spent)
-    # Only check these if the note is being edited (it's already been timed)
-    unless time_spent.finished_at.nil?
+    # Only check these if the note is being edited (it's already been logged)
+    if time_spent.finished_at
       time_spent.errors[:total_time] << "must be set" if time_spent.total_time.nil?
       time_spent.errors[:notes] << "must be set" if time_spent.notes.empty?
     end

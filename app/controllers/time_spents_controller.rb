@@ -3,13 +3,10 @@ class TimeSpentsController < ApplicationController
 
   before_filter :authenticate_user!
   before_filter :user_owns_time_spent, only: [:edit, :update, :destroy]
+  before_filter :user_not_working, only: [:create]
+  before_filter :time_spent_ids_present, only: [:mark_as_paid]
 
   def create
-    if current_user.currently_working?
-      flash[:error] = "You are already working!"
-      redirect_to root_path
-    end
-
     @time_spent = current_user.time_spents.create(time_spent_params)
     @time_spent.set_amount_paid
 
@@ -69,18 +66,14 @@ class TimeSpentsController < ApplicationController
   end
 
   def mark_as_paid
-    if params[:time_spent_ids].blank?
-      flash[:error] = 'No logs selected.'
-      redirect_to :back
-    else
-      # Only allow time_spents owned by the user to be modified
-      params[:time_spent_ids] = params[:time_spent_ids].map(&:to_i) & current_user.time_spents.pluck(:id)
+    # Only allow time_spents owned by the user to be modified
+    # & operator merges two arrays and keeps only elements that are NOT unique
+    params[:time_spent_ids] = params[:time_spent_ids].map(&:to_i) & current_user.time_spents.pluck(:id)
 
-      # Single SQL statement, skips validations and callbacks
-      TimeSpent.where(id: params[:time_spent_ids]).update_all(paid_status: true)
+    # Single SQL statement, skips validations and callbacks
+    TimeSpent.where(id: params[:time_spent_ids]).update_all(paid_status: true)
 
-      redirect_to :back
-    end
+    redirect_to :back
   end
 
 private
@@ -91,6 +84,20 @@ private
     if @time_spent.blank?
       flash[:error] = "That's not your time spent."
       redirect_to root_path
+    end
+  end
+
+  def user_not_working
+    if current_user.currently_working?
+      flash[:error] = "You are already working!"
+      redirect_to root_path
+    end
+  end
+
+  def time_spent_ids_present
+    if params[:time_spent_ids].blank?
+      flash[:error] = 'No logs selected.'
+      redirect_to :back
     end
   end
 
