@@ -46,7 +46,7 @@ class TimeSpent < ActiveRecord::Base
 
   # Money
   # ========================================================
-  monetize :amount_paid_cents, numericality: { greater_than: 0 }, allow_nil: true
+  monetize :amount_paid_cents, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
   # Validations
   # ========================================================
